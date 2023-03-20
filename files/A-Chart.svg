@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <radialGradient id="radialGradient4350" cx="1204.6" cy="444.17" r="24.583" gradientTransform="matrix(1.6535e-8 -.75621 1.2012 0 650.27 1337.5)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f4ac23" stop-opacity="0" offset="0"/>
+   <stop stop-color="#f4ac23" offset="1"/>
+  </radialGradient>
+ </defs>
+ <g transform="matrix(.99167 0 0 .99167 -1124 -379.27)">
+  <circle cx="1165.8" cy="414.72" r="32.269" fill="#fecf66"/>
+  <path d="m1164.8 398.86-7.2648 9.8705-1.7719-1.7718-7.2523 18.718 21.039 21.041c14.448-1.7064 25.968-12.87 28.127-27.258l-14.83-14.83-7.2578 5.0195z" fill="url(#radialGradient4350)"/>
+  <path d="m1176.2 404.45h6.1886c0.346 0 0.6245 0.27852 0.6245 0.6245v20.607h-7.4376v-20.607c0-0.34598 0.2785-0.6245 0.6245-0.6245zm-9.0269 6.7452h6.1887c0.3459 0 0.6245 0.27853 0.6245 0.6245v13.862h-7.4377v-13.862c0-0.34597 0.2786-0.6245 0.6245-0.6245zm-9.0268-12.522h6.1886c0.346 0 0.6245 0.27853 0.6245 0.6245v26.384h-7.4376v-26.384c0-0.34597 0.2785-0.6245 0.6245-0.6245zm-9.0269 8.1089h6.1887c0.346 0 0.6245 0.27853 0.6245 0.62451v18.275h-7.4377v-18.275c0-0.34598 0.2786-0.62451 0.6245-0.62451z" fill="#ffffff" stroke-width=".063711"/>
+ </g>
+</svg>

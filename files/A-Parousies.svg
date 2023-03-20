@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient1918" x1="626.25" x2="613.49" y1="159" y2="146.24" gradientTransform="translate(-560.36 -81.631)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f4ac23" stop-opacity="0" offset="0"/>
+   <stop stop-color="#f4ac23" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-5.5912 -19.912)">
+  <ellipse cx="37.591" cy="51.912" rx="32" ry="32" fill="#fecf66" stroke-width=".992"/>
+  <path d="m34.216 30.199-1.9141 2.4726 1.1016 2.1016 2.9316 0.44922v1.2012l-4.5254 2.5879c-6.2617 3.3886-7.8961 8.1936-8.4356 13.334l5.2227 12.527 17.791 17.791a32 32 0 0 0 22.752-25.617l-26.58-26.58z" fill="url(#linearGradient1918)"/>
+  <path d="m37.591 36.373c-8.5648 0-15.539 6.9742-15.539 15.539s6.9742 15.539 15.539 15.539 15.539-6.9742 15.539-15.539-6.9742-15.539-15.539-15.539zm0 2.9121c6.9912 0 12.629 5.6357 12.629 12.627 0 6.9912-5.6377 12.627-12.629 12.627-6.9912 0-12.627-5.6357-12.627-12.627 0-6.9912 5.6357-12.627 12.627-12.627z" color="#000000" fill="#ffffff" style="-inkscape-stroke:none"/>
+  <path id="rect35971" d="m23.543 39.314c-0.2014 0.20138-0.2014 0.52513 0 0.72646l0.8562 0.85626c0.2014 0.20133 0.5251 0.20137 0.7265-2e-5l0.1505-0.15054 0.9654 0.96536 1.3065-1.3064-0.9654-0.96536 0.1505-0.15054c0.2014-0.20132 0.2014-0.52514 1e-4 -0.72646l-0.8563-0.85627c-0.2013-0.20133-0.5252-0.20129-0.7265 2e-5z" fill="#ffffff" stroke-width="2.1358"/>
+  <use transform="matrix(-1 0 0 1 74.95 0)" width="100%" height="100%" xlink:href="#rect35971"/>
+  <rect x="32.302" y="30.119" width="10.58" height="5.1039" ry="2.552" fill="none" stroke="#ffffff" stroke-width="1.1747"/>
+  <g fill="#ffffff">
+   <rect x="36.335" y="33.792" width="2.751" height="4.0369" ry="1.0488"/>
+   <circle cx="37.592" cy="51.912" r="2.5239"/>
+   <path d="m40.816 50.148c0.29776 0.54029 0.45492 1.1468 0.45703 1.7637-0.0018 0.61756-0.15895 1.2248-0.45703 1.7656h6.6851c0.97761 0 1.7637-0.78801 1.7637-1.7656 0-0.97762-0.78606-1.7637-1.7637-1.7637z" stroke-width="2.1073"/>
+   <path d="m37.589 40.24c-0.97761 0-1.7637 0.78606-1.7637 1.7637v6.6914a3.6801 3.6801 0 0 1 1.7656-0.46289 3.6801 3.6801 0 0 1 1.7637 0.46094v-6.6894c0-0.97762-0.78801-1.7637-1.7656-1.7637z" stroke-width="2.469"/>
+   <circle id="path37977" cx="37.592" cy="41.499" r="1.2595" fill="#ffffff"/>
+  </g>
+  <use id="use38177" transform="rotate(180 37.592 51.912)" width="100%" height="100%" xlink:href="#path37977"/>
+  <use id="use38179" transform="rotate(270 37.592 51.912)" width="100%" height="100%" xlink:href="#use38177"/>
+  <use transform="rotate(180 37.592 51.912)" width="100%" height="100%" fill="#ffffff" xlink:href="#use38179"/>
+  <g transform="translate(-560.36 -81.631)">
+   <path d="m600.48 133.54a2.5239 2.5239 0 0 1-2.5239 2.5239 2.5239 2.5239 0 0 1-2.5239-2.5239 2.5239 2.5239 0 0 1 2.5239-2.5239 2.5239 2.5239 0 0 1 2.5239 2.5239z" color="#000000" fill="#ffffff" stroke-width="1.7" style="-inkscape-stroke:none"/>
+  </g>
+  <circle id="use38769" transform="rotate(-44.992)" cx="-14.103" cy="53.671" r=".7" fill="#ffffff"/>
+  <use id="use10665" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use38769"/>
+  <use id="use10667" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10665"/>
+  <use id="use10669" transform="rotate(45 37.592 51.912)" width="100%" height="100%" xlink:href="#use10667"/>
+  <use id="use10671" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10669"/>
+  <use id="use10673" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10671"/>
+  <use id="use10675" transform="rotate(45 37.592 51.912)" width="100%" height="100%" xlink:href="#use10673"/>
+  <use id="use10677" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10675"/>
+  <use id="use10679" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10677"/>
+  <use id="use10681" transform="rotate(45 37.592 51.912)" width="100%" height="100%" xlink:href="#use10679"/>
+  <use id="use10683" transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10681"/>
+  <use transform="rotate(22.5 37.592 51.912)" width="100%" height="100%" xlink:href="#use10683"/>
+ </g>
+</svg>

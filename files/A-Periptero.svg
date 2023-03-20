@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(1042.2 12.397)">
+  <ellipse cx="-1010.2" cy="19.603" rx="32" ry="32" fill="#fecf66" stroke-width=".992"/>
+  <path d="m-1e3 3.2363-24.787 9.2754 5.0098 5.0098v3.5215l0.8359 0.83203-2.0468 1.8301 0.9629 0.96484 0.3652 11.299h-3.4297l15.455 15.455a32 32 0 0 0 29.049-26.773z" fill="#f4ac23"/>
+  <g transform="matrix(.91966 0 0 .91966 -81.158 1.5749)">
+   <g fill="#ffffff" stroke-linecap="round">
+    <path d="m-1021.2 1.8074h11.04v10.085h-15.911z" stroke-width="2.8178"/>
+    <path d="m-999.11 1.8074h-11.04v10.085h15.911z" stroke-width="2.8178"/>
+    <path d="m-1020.6 12.865h10.463v8.3025h-10.463z" stroke-width="2.4702"/>
+    <path d="m-999.69 12.865h-10.463v8.3025h10.463z" stroke-width="2.4702"/>
+    <path d="m-1021.9 22.075h11.783v1.9878h-11.783z" stroke-width="1.2827"/>
+    <path d="m-998.37 22.075h-11.783v1.9878h11.783z" stroke-width="1.2827"/>
+    <path d="m-1018.3 27.45h8.1291v4.9929h-8.1291z" stroke-width="1.6885"/>
+    <path d="m-1002 27.45h-8.1291v4.9929h8.1291z" stroke-width="1.6885"/>
+    <path d="m-1024.2 35.41h14.068v1.9878h-14.068z" stroke-width="1.4016"/>
+    <path d="m-996.08 35.41h-14.068v1.9878h14.068z" stroke-width="1.4016"/>
+   </g>
+   <path d="m-1010.2 25.703h-10.041v8.7005h10.041" fill="none" stroke="#ffffff" stroke-width="2.0664"/>
+   <path d="m-1010.2 25.703h10.041v8.7005h-10.041" fill="none" stroke="#ffffff" stroke-width="2.0664"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient21931" x1="169.97" x2="185.17" y1="428.77" y2="443.97" gradientTransform="matrix(.99167 0 0 .99167 1.0224 3.1739)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f4ac23" offset="0"/>
+   <stop stop-color="#f4ac23" stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-122.68 -380.86)">
+  <circle cx="154.68" cy="412.86" r="32" fill="#fecf66" stroke-width=".99167"/>
+  <path d="m151.37 402.15-7.6583 11.476 1.9892 8.894 20.217 20.215a32 32 0 0 0 18.909-19.372l-20.103-20.103z" fill="url(#linearGradient21931)"/>
+  <g fill="#ffffff">
+   <path d="m155.35 399.3c-0.49359-8e-3 -0.98947 0.0112-1.4836 0.0581-1.3177 0.12498-2.6284 0.44539-3.8911 0.96843-5.0508 2.0921-8.3575 7.0392-8.3575 12.506 0 5.467 3.3067 10.414 8.3575 12.506 3.006 1.2451 6.287 1.3274 9.2678 0.38349v-2.2138h-4.4393v-2.7561c-0.90571-0.0408-1.8131-0.23173-2.6845-0.59268-2.9713-1.2307-4.8964-4.111-4.8964-7.3271 0-3.216 1.9251-6.0964 4.8964-7.3271 2.9713-1.2307 6.3701-0.55611 8.6442 1.718l3.9628-3.9628c-2.5369-2.5369-5.9212-3.9086-9.3763-3.9609zm5.0164 19.502c-0.75329 0.6588-1.6075 1.1582-2.5179 1.4875v0.17432h4.4373v3.8679c0.57959-0.35911 1.1353-0.76411 1.6618-1.2144v-1.4914l-2.8239-2.8239z" color="#000000" stroke-width=".99167" style="-inkscape-stroke:none"/>
+   <g transform="matrix(.99167 0 0 .99167 -76.54 -17.674)">
+    <path d="m239.3 434.14v4.4748h-4.4749v4.7445h4.4749v4.4748h4.7444v-4.4748h4.4748v-4.7445h-4.4748v-4.4748z" color="#000000" fill="#ffffff" stroke-width="2.7687" style="-inkscape-stroke:none"/>
+   </g>
+   <path d="m139.46 411.04h20.234zm0 3.9047h19.578z" color="#000000" stroke-width="2.6276" style="-inkscape-stroke:none"/>
+   <path d="m139.26 409.72v2.6264h16.596l0.70501-2.6264zm0 3.9047v2.6264h15.55l0.70502-2.6264z" color="#000000" stroke-width=".99167" style="-inkscape-stroke:none"/>
+   <path d="m160.77 412.84v4.4375h-4.4376v4.705h4.4376v4.4375h4.7049v-4.4375h4.4375v-4.705h-4.4375v-4.4375z"/>
+  </g>
+  <g transform="matrix(.99167 0 0 .99167 1.0224 3.1739)">
+   <path d="m161.09 413.11v4.4748h-4.4749v4.7445h4.4749v4.4748h4.7444v-4.4748h4.4748v-4.7445h-4.4748v-4.4748z" color="#000000" fill="#ffffff" stroke-width="3.069" style="-inkscape-stroke:none"/>
+  </g>
+ </g>
+</svg>

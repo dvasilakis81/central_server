@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient52301" x1="-547.54" x2="-600.56" y1="86.338" y2="33.312" gradientTransform="translate(-13.557 -15.821)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f4ac23" stop-opacity="0" offset="0"/>
+   <stop stop-color="#f4ac23" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(636.97 5.3946)">
+  <g transform="matrix(.99167 0 0 .99167 -368.29 -115.69)" stroke-width="1.0003">
+   <circle cx="-238.66" cy="143.49" r="32.269" fill="#fecf66" stroke-width="1.0003"/>
+  </g>
+  <path d="m-593.92 13.09 1.3301 9.2246-28.1 0.89453-4.041 2.4551 3.3555 3.3555v5.6953l0.73242 0.74805-0.53711 4.8359 18.166 18.166a32 32 0 0 0 29.262-25.209z" fill="url(#linearGradient52301)"/>
+  <g fill="#ffffff">
+   <path d="m-616.29 13.571-5.0802 11.142v9.2679a0.73212 0.73212 45 0 0 0.73212 0.73212h31.345a0.73118 0.73118 135 0 0 0.73118-0.73118v-9.2688l-5.1706-11.341a1.1835 1.1835 32.745 0 0-1.0768-0.6925h-20.096a1.5222 1.5222 147.25 0 0-1.385 0.89072zm2.9284 1.5097h16.831a0.74736 0.74736 33.488 0 1 0.68782 0.45505l2.8802 6.7774h-24.147l2.997-6.7444a0.82163 0.82163 146.98 0 1 0.75083-0.48798zm-3.8562 12.406h3.3945c0.40524 0 0.73242 0.32522 0.73242 0.73047v2.4941c0 0.40524-0.32718 0.73242-0.73242 0.73242h-3.3945c-0.40524 0-0.73243-0.32718-0.73243-0.73242v-2.4941c0-0.40524 0.32719-0.73047 0.73243-0.73047zm21.109 0h3.3945c0.40524 0 0.73242 0.32522 0.73242 0.73047v2.4941c0 0.40524-0.32718 0.73242-0.73242 0.73242h-3.3945c-0.40524 0-0.73242-0.32718-0.73242-0.73242v-2.4941c0-0.40524 0.32718-0.73047 0.73242-0.73047z" color="#000000" style="-inkscape-stroke:none"/>
+   <rect id="rect45749" x="-621.37" y="35.461" width="5.7281" height="5.0691" ry=".73149" fill="#ffffff"/>
+   <rect id="rect45849" x="-624.86" y="23.031" width="4.2194" height="2.7126" ry=".35566" fill="#ffffff"/>
+   <use transform="matrix(-1 0 0 1 -1209.9 -2.5391e-8)" width="100%" height="100%" xlink:href="#rect45749"/>
+   <use transform="matrix(-1 0 0 1 -1209.9 -2.5391e-8)" width="100%" height="100%" xlink:href="#rect45849"/>
+  </g>
+ </g>
+</svg>

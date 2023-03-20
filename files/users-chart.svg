@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="64" height="64" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.99167 0 0 .99167 -1727.6 -168.98)">
+  <g transform="translate(1373)">
+   <circle cx="401.46" cy="202.67" r="32.269" fill="#fecf66"/>
+   <path d="m409.58 185.49-15.658 9.5273 5.2578 5.2559h-12.264v5.5449l-4.5078 8.7617 20.277 20.275a32.269 32.269 0 0 0 30.355-25.904z" fill="#f4ac23"/>
+   <g transform="translate(224.36 157.26)">
+    <g fill="#ffffff">
+     <rect x="157.75" y="47.794" width="9.7619" height="9.7619" ry=".90625"/>
+     <rect x="187.34" y="47.794" width="9.7619" height="9.7619" ry=".90625"/>
+     <rect x="172.54" y="47.794" width="9.7619" height="9.7619" ry=".90625"/>
+    </g>
+    <rect x="169.33" y="28" width="16.188" height="10.062" ry=".90625" fill="#313841"/>
+    <g transform="translate(0 -.023438)" fill="#ffffff">
+     <rect x="172.29" y="30.953" width="9.9688" height="1.2188" ry=".046875"/>
+     <rect x="172.29" y="33.938" width="5.0938" height="1.2188" ry=".046875"/>
+    </g>
+    <g fill="none" stroke="#ffffff">
+     <circle cx="177.43" cy="43.056" r="2.2641" stroke-width="1.6"/>
+     <g>
+      <g stroke-width="1.6">
+       <path d="m162.63 47.794v-4.7379l12.529-2.9e-5"/>
+       <path d="m192.22 47.794v-4.7379l-12.529-2.9e-5"/>
+       <path d="m177.43 48.05v-2.7296"/>
+      </g>
+      <path d="m177.43 40.792v-2.7296" stroke-width="1.5"/>
+     </g>
+    </g>
+   </g>
+   <g fill="#dddddd">
+    <rect x="383.35" y="207.61" width="7.2656" height="1.3201" stroke-width="1.2657"/>
+    <rect x="383.16" y="209.94" width="6.0312" height="1.3201" stroke-width="1.1532"/>
+    <rect x="398.27" y="207.61" width="4.7727" height="1.3201" stroke-width="1.0259"/>
+    <rect x="398.08" y="209.94" width="7.143" height="1.3201" stroke-width="1.255"/>
+    <rect x="413.32" y="207.61" width="7.2656" height="1.3201" stroke-width="1.2657"/>
+    <rect x="413.13" y="209.94" width="7.3114" height="1.3201" stroke-width="1.2697"/>
+   </g>
+  </g>
+ </g>
+</svg>
