@@ -33,7 +33,8 @@ async function getPageItems(req, res, next) {
 async function getPageItem(req, res, next) {
 
   try {
-    const [rows] = await db.query(queries.query_getmenuitem(req));
+    const [rows] = await db.query(queries.query_getpageitem(req));
+    
     return rows;
   } catch (error) {
     next(error);
@@ -85,6 +86,20 @@ async function getPageInfo(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_getpageinfo('pages', req.body.pagename));
+    for (var i = 0; i < rows.length; i++) {
+      var ti = JSON.parse(rows[i].tabsInfo);
+      var t2 = '[' + ti + ']';
+      rows[i].tabsInfo = JSON.parse(t2);
+
+      rows[i].tabs = '';
+      for (var j = 0; j < rows[i].tabsInfo.length; j++) {
+        if (rows[i].tabsInfo) {
+          if (rows[i].tabsInfo[j].tabtitle)
+            rows[i].tabs += rows[i].tabsInfo[j].tabtitle + (j < rows[i].tabsInfo.length - 1 ? ',' : '');
+        }
+      }
+    }
+    
     return rows[0];
   } catch (error) {
     next(error);

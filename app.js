@@ -34,7 +34,6 @@ app.post('/addMediaItem', dbMediaItems.addMediaItem);
 app.get('/getPageItems', dbPageItems.getPageItems);
 app.post('/addPageItem', dbPageItems.addPageItem);
 app.post('/editPageItem', dbPageItems.editPageItem);
-
 app.post('/getPageInfo', dbPageItems.getPageInfo);
 
 // view engine setup
