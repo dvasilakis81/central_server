@@ -43,6 +43,7 @@ async function getPageItem(req, res, next) {
 
 async function addPageTabs(req, res, next, pageItem) {
   try {
+    await db.query(queries.query_deletepageitemtabs(pageItem));
     await db.query(queries.query_addpageitemtabs(req, pageItem));
   } catch (error) {
     next(error);
@@ -63,9 +64,9 @@ async function addPageItem(req, res, next) {
 async function editPageItem(req, res, next) {
 
   try {
-    const [rows] = await db.query(queries.query_editpageitem(req));
-    //const [rows] = await db.query(queries.query_selectlastinserteditem('pages'));
-    return rows;
+    await db.query(queries.query_editpageitem(req));
+    const [rows] = await db.query(queries.query_getpageitem(req));
+    return rows[0];    
   } catch (error) {
     next(error);
   }
@@ -99,7 +100,7 @@ async function getPageInfo(req, res, next) {
         }
       }
     }
-    
+
     return rows[0];
   } catch (error) {
     next(error);

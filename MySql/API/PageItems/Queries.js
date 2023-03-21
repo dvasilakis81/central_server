@@ -11,7 +11,7 @@ function query_getpageitems(req) {
   return 'SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl)) from tabs t where t.PageId=p.Id)) as tabsInfo FROM pages p';
 }
 function query_getpageitem(req) {
-  return 'Select * From `pages` Where Id=' + req.body.id;
+  return 'Select * From `central`.`pages` Where Id=' + req.body.Id;
 }
 function query_selectlastinserteditem(table) {
   return util.format('SELECT * FROM `%s` WHERE `id`= LAST_INSERT_ID()', table);
@@ -39,6 +39,11 @@ function query_addpageitem(req) {
   console.log('sqlQuery: ' + sqlQuery);
   return sqlQuery;
 }
+
+function query_deletepageitemtabs(pageItem) {
+  var sqlQuery = util.format('DELETE FROM `tabs` WHERE PageId=%s', pageItem.Id);
+  return sqlQuery;
+}
 function query_addpageitemtabs(req, pageItem) {
 
   var pageId = pageItem.Id;
@@ -48,7 +53,7 @@ function query_addpageitemtabs(req, pageItem) {
 
   var sqlQuery = 'INSERT INTO `tabs` (PageId, PageTitle, TabId, TabTitle,TabUrl) VALUES ';
   for (var i = 0; i < pageTabs.length; i++)
-    sqlQuery += util.format('(%s,%s,%s,%s,%s)%s', pageId, helper.addQuotes(pageTitle), pageTabs[i].Id, helper.addQuotes(pageTabs[i].Title),helper.addQuotes(pageTabs[i].pageUrl), i < pageTabs. length - 1 ? ',' : '');
+    sqlQuery += util.format('(%s,%s,%s,%s,%s)%s', pageId, helper.addQuotes(pageTitle), pageTabs[i].Id, helper.addQuotes(pageTabs[i].Title), helper.addQuotes(pageTabs[i].Url), i < pageTabs.length - 1 ? ',' : '');
 
   return sqlQuery;
 }
@@ -61,7 +66,7 @@ function query_editpageitem(req) {
   var sqlQuery = util.format('UPDATE `pages` SET Title=%s, Url=%s,Body=%s WHERE Id=%s',
     helper.addQuotes(title),
     helper.addQuotes(url),
-    helper.addQuotes(body),    
+    helper.addQuotes(body),
     id);
 
   return sqlQuery;
@@ -74,5 +79,6 @@ module.exports = {
   query_editpageitem,
   query_selectlastinserteditem,
   query_getpageinfo,
-  query_addpageitemtabs
+  query_addpageitemtabs,
+  query_deletepageitemtabs
 }
