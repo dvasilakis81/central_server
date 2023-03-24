@@ -44,7 +44,8 @@ async function getPageItem(req, res, next) {
 async function addPageTabs(req, res, next, pageItem) {
   try {
     await db.query(queries.query_deletepageitemtabs(pageItem));
-    await db.query(queries.query_addpageitemtabs(req, pageItem));
+    if (req.body && req.body.Tabs && req.body.Tabs.length > 0 )
+      await db.query(queries.query_addpageitemtabs(req, pageItem));
   } catch (error) {
     next(error);
   }
@@ -107,6 +108,14 @@ async function getPageInfo(req, res, next) {
   }
 }
 
+async function fixPageTitleIfIsTab(req) {
+  try {
+    await db.query(queries.query_fixpagetitleifistab(req));
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getPageItems,
   getPageItem,
@@ -114,5 +123,6 @@ module.exports = {
   editPageItem,
   addPageInfo,
   getPageInfo,
-  addPageTabs
+  addPageTabs,
+  fixPageTitleIfIsTab
 }

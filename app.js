@@ -14,7 +14,7 @@ var cors = require('cors');
 var helmet = require('helmet');
 
 var app = express();
-app.use(helmet({ crossOriginResourcePolicy: false }))
+//app.use(helmet({ crossOriginResourcePolicy: false }))
 app.use(cors());
 app.use(fileupload())
 app.use(bodyParser.json());
@@ -25,10 +25,13 @@ var dbPageItems = require('./Mysql/API/PageItems/PageItemsAPI');
 var dbMediaItems = require('./Mysql/API/MediaItems/MediaItemsAPI');
 var dbErrorItems = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
 
+app.get("/", (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+ });
 app.get('/getMenuItems', dbMenuItems.getMenuItems);
 app.get('/getMediaItems', dbMediaItems.getMediaItems);
 app.post('/addMenuItem', dbMenuItems.addMenuItem);
-
 app.post('/editMenuItem', dbMenuItems.editMenuItem);
 app.post('/addMediaItem', dbMediaItems.addMediaItem);
 app.get('/getPageItems', dbPageItems.getPageItems);
@@ -39,13 +42,7 @@ app.post('/getPageInfo', dbPageItems.getPageInfo);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-//app.use('/public/images',express.static(__dirname + '/public/images'));
-//app.use(express.static('files'));
 app.use('/files', express.static(__dirname + '\\files'));
-//app.use('/files/images', express.static(__dirname + '/images'));
-//app.use('/files/videos', express.static(__dirname + '/videos'));
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -53,6 +50,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(express.static(path.join(__dirname, '/build')))  
+app.use((req, res) => {
+  console.log('Redirect to index.html');
+  res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
+  res.sendFile(path.join(__dirname, '/build/index.html'));
+})
+app.all('/*', function (req, res, next) {
+  console.log('Accessing all urls except all above ...')
+  res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
+  res.sendFile(path.join(__dirname, '/build/index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

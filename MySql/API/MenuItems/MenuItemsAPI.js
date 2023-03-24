@@ -4,6 +4,7 @@ var pool = require('../../dbConfig').pool;
 async function getMenuItems(req, res, next) {
   console.log("CALL getMenuItems");
   var menuItems = await methods.getMenuItems(req, res, next);
+  res.set('Access-Control-Allow-Origin', '*');
   res.status(200).json(menuItems);
 }
 

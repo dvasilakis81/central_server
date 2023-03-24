@@ -17,7 +17,7 @@ function query_selectlastinserteditem(table) {
   return util.format('SELECT * FROM `%s` WHERE `id`= LAST_INSERT_ID()', table);
 }
 function query_getpageinfo(table, url) {
-  return util.format('SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl)) from tabs t where t.pageid=p.Id)) as tabsInfo FROM `%s` as p WHERE `Url`= %s', table, helper.addQuotes(url));
+  return util.format('SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl, \'taborder\',t.OrderNo)) from tabs t where t.pageid=p.Id order by orderno asc)) as tabsInfo FROM `%s` as p WHERE `Url`= %s', table, helper.addQuotes(url));
 }
 function query_addpageitem(req) {
 
@@ -51,10 +51,11 @@ function query_addpageitemtabs(req, pageItem) {
   var pageUrl = pageItem.Url;
   var pageTabs = req.body.Tabs;
 
-  var sqlQuery = 'INSERT INTO `tabs` (PageId, PageTitle, TabId, TabTitle,TabUrl) VALUES ';
-  for (var i = 0; i < pageTabs.length; i++)
-    sqlQuery += util.format('(%s,%s,%s,%s,%s)%s', pageId, helper.addQuotes(pageTitle), pageTabs[i].Id, helper.addQuotes(pageTabs[i].Title), helper.addQuotes(pageTabs[i].Url), i < pageTabs.length - 1 ? ',' : '');
-
+  if (pageTabs && pageTabs.length > 0) {
+    var sqlQuery = 'INSERT INTO `tabs` (PageId, PageTitle, TabId, TabTitle,TabUrl) VALUES ';
+    for (var i = 0; i < pageTabs.length; i++)
+      sqlQuery += util.format('(%s,%s,%s,%s,%s)%s', pageId, helper.addQuotes(pageTitle), pageTabs[i].Id, helper.addQuotes(pageTabs[i].Title), helper.addQuotes(pageTabs[i].Url), i < pageTabs.length - 1 ? ',' : '');
+  }
   return sqlQuery;
 }
 function query_editpageitem(req) {
@@ -71,6 +72,13 @@ function query_editpageitem(req) {
 
   return sqlQuery;
 }
+function query_fixpagetitleifistab(req) {
+  var id = req.body.Id;
+  var title = req.body.Title;
+
+  var sqlQuery = util.format('UPDATE `tabs` SET TabTitle=%s WHERE TabId=%s', helper.addQuotes(title), id);
+  return sqlQuery;
+}
 
 module.exports = {
   query_getpageitems,
@@ -80,5 +88,6 @@ module.exports = {
   query_selectlastinserteditem,
   query_getpageinfo,
   query_addpageitemtabs,
-  query_deletepageitemtabs
+  query_deletepageitemtabs,
+  query_fixpagetitleifistab
 }

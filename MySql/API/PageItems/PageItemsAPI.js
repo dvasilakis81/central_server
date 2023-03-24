@@ -12,14 +12,13 @@ async function addPageItem(req, res, next) {
 
   res.status(200).json(pageItem);
 }
-
 async function getPageItem(req, res, next) {
   var pageItem = await methods.getPageItem(req, res, next);
   res.status(200).json(pageItem);
 }
-
 async function editPageItem(req, res, next) {
-  var pageItem = await methods.editPageItem(req, res, next);  
+  var pageItem = await methods.editPageItem(req, res, next);
+  await methods.fixPageTitleIfIsTab(req);
   await methods.addPageTabs(req, res, next, pageItem);
   var pageItem = await methods.getPageItem(req, res, next);
   res.status(200).json(pageItem);
