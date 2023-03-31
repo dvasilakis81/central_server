@@ -45,9 +45,20 @@ async function editMenuItem(req, res, next) {
   }
 }
 
+async function deleteItem(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_deleteitem(req));
+    return rows;
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getMenuItems,
   getMenuItem,
   addMenuItem,
-  editMenuItem
+  editMenuItem,
+  deleteItem
 }

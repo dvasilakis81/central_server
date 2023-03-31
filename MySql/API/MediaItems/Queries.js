@@ -41,8 +41,13 @@ function query_addmediaitem(req, url) {
     return sqlQuery;
 }
 
+function query_deleteitem(req) {
+  return 'Delete From `central`.`media` Where Id=' + req.body.id;
+}
+
 module.exports = {
   query_getmediaitems,
   query_addmediaitem,
-  query_selectlastinserteditem
+  query_selectlastinserteditem,
+  query_deleteitem
 }

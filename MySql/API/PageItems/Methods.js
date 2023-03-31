@@ -2,7 +2,6 @@ var queries = require('./Queries');
 const db = require('../../dbConfig');
 const { json } = require('body-parser');
 
-
 async function getPageItems(req, res, next) {
 
   try {
@@ -22,6 +21,10 @@ async function getPageItems(req, res, next) {
             rows[i].tabs += rows[i].tabsInfo[j].tabtitle + (j < rows[i].tabsInfo.length - 1 ? ',' : '');
         }
       }
+
+      var c1 = JSON.parse(rows[i].comments);
+      var c2 = '[' + c1 + ']';
+      rows[i].comments = JSON.parse(c2);
     }
 
     return rows;
@@ -34,7 +37,6 @@ async function getPageItem(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_getpageitem(req));
-    
     return rows;
   } catch (error) {
     next(error);
@@ -44,7 +46,7 @@ async function getPageItem(req, res, next) {
 async function addPageTabs(req, res, next, pageItem) {
   try {
     await db.query(queries.query_deletepageitemtabs(pageItem));
-    if (req.body && req.body.Tabs && req.body.Tabs.length > 0 )
+    if (req.body && req.body.Tabs && req.body.Tabs.length > 0)
       await db.query(queries.query_addpageitemtabs(req, pageItem));
   } catch (error) {
     next(error);
@@ -67,7 +69,7 @@ async function editPageItem(req, res, next) {
   try {
     await db.query(queries.query_editpageitem(req));
     const [rows] = await db.query(queries.query_getpageitem(req));
-    return rows[0];    
+    return rows[0];
   } catch (error) {
     next(error);
   }
@@ -89,10 +91,10 @@ async function getPageInfo(req, res, next) {
   try {
     const [rows] = await db.query(queries.query_getpageinfo('pages', req.body.pagename));
     for (var i = 0; i < rows.length; i++) {
+
       var ti = JSON.parse(rows[i].tabsInfo);
       var t2 = '[' + ti + ']';
       rows[i].tabsInfo = JSON.parse(t2);
-
       rows[i].tabs = '';
       for (var j = 0; j < rows[i].tabsInfo.length; j++) {
         if (rows[i].tabsInfo) {
@@ -100,6 +102,10 @@ async function getPageInfo(req, res, next) {
             rows[i].tabs += rows[i].tabsInfo[j].tabtitle + (j < rows[i].tabsInfo.length - 1 ? ',' : '');
         }
       }
+
+      var c1 = JSON.parse(rows[i].comments);
+      var c2 = '[' + c1 + ']';
+      rows[i].comments = JSON.parse(c2);
     }
 
     return rows[0];
@@ -116,6 +122,16 @@ async function fixPageTitleIfIsTab(req) {
   }
 }
 
+async function deleteItem(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_deleteitem(req));
+    return rows;
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getPageItems,
   getPageItem,
@@ -124,5 +140,6 @@ module.exports = {
   addPageInfo,
   getPageInfo,
   addPageTabs,
-  fixPageTitleIfIsTab
+  fixPageTitleIfIsTab,
+  deleteItem
 }

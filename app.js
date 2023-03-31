@@ -12,10 +12,10 @@ var usersRouter = require('./routes/users');
 var bodyParser = require("body-parser");
 var cors = require('cors');
 var helmet = require('helmet');
-
 var app = express();
 //app.use(helmet({ crossOriginResourcePolicy: false }))
 app.use(cors());
+
 app.use(fileupload())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,12 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var dbMenuItems = require('./MySql/API/MenuItems/MenuItemsAPI');
 var dbPageItems = require('./Mysql/API/PageItems/PageItemsAPI');
 var dbMediaItems = require('./Mysql/API/MediaItems/MediaItemsAPI');
+var dbAnnouncements = require('./Mysql/API/Announcements/AnnouncementsAPI');
+var dbItems = require('./Mysql/API/Items/ItemsAPI');
 var dbErrorItems = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
 
 app.get("/", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.sendFile(path.join(__dirname, "build", "index.html"));
- });
+});
 app.get('/getMenuItems', dbMenuItems.getMenuItems);
 app.get('/getMediaItems', dbMediaItems.getMediaItems);
 app.post('/addMenuItem', dbMenuItems.addMenuItem);
@@ -38,6 +40,10 @@ app.get('/getPageItems', dbPageItems.getPageItems);
 app.post('/addPageItem', dbPageItems.addPageItem);
 app.post('/editPageItem', dbPageItems.editPageItem);
 app.post('/getPageInfo', dbPageItems.getPageInfo);
+app.get('/getAnnouncements', dbAnnouncements.getAnnouncements);
+app.post('/addAnnouncement', dbAnnouncements.addAnnouncement);
+app.post('/editAnnouncement', dbAnnouncements.editAnnouncement);
+app.post('/deleteItem', dbItems.deleteItem);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,7 +56,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use(express.static(path.join(__dirname, '/build')))  
+app.use(express.static(path.join(__dirname, '/build')))
 app.use((req, res) => {
   console.log('Redirect to index.html');
   res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
@@ -75,8 +81,11 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  //res.status(err.status || 500);
+  var serverError = {};
+  serverError.servererrormessage = 'Internal Server Error';
+  res.status(200).json(serverError);
+  //res.render('error');
 });
 
 module.exports = app;

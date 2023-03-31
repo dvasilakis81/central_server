@@ -21,13 +21,15 @@ async function editPageItem(req, res, next) {
   await methods.fixPageTitleIfIsTab(req);
   await methods.addPageTabs(req, res, next, pageItem);
   var pageItem = await methods.getPageItem(req, res, next);
-  res.status(200).json(pageItem);
+  if (pageItem && pageItem.length > 0)
+    res.status(200).json(pageItem[0]);
+  else
+    res.status(200).json(pageItem);
 }
 async function getPageInfo(req, res, next) {
   var pageInfo = await methods.getPageInfo(req, res, next);
   res.status(200).json(pageInfo);
 }
-
 module.exports = {
   getPageItems,
   addPageItem,

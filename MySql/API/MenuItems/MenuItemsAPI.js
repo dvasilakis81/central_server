@@ -17,12 +17,17 @@ async function addMenuItem(req, res, next) {
 async function editMenuItem(req, res, next) {
   console.log("CALL editMenuItem");
   var menuItems = await methods.editMenuItem(req, res, next);
-  var menuItem =await methods.getMenuItem(req, res, next);
+  var menuItem = await methods.getMenuItem(req, res, next);
   res.status(200).json(menuItem);
 }
 
+async function getAnnouncements(req, res, next) {
+  var announcements = await methods.getAnnouncements(req, res, next);
+  res.status(200).json(announcements);
+}
 module.exports = {
-  getMenuItems,  
+  getMenuItems,
   addMenuItem,
-  editMenuItem
+  editMenuItem,
+  getAnnouncements
 }

@@ -48,8 +48,19 @@ async function addMediaToDirectory(req, res, next) {
   return ret;
 }
 
+async function deleteItem(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_deleteitem(req));
+    return rows;
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getMediaItems,
   addMediaItem,
-  addMediaToDirectory
+  addMediaToDirectory,
+  deleteItem
 }

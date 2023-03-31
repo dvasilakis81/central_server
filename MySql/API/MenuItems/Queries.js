@@ -90,10 +90,20 @@ function query_editmenuitem(req) {
   return sqlQuery;
 }
 
+function query_getannouncements(){
+  return 'Select * From `central`.`menu` Where Announce=1'; 
+}
+
+function query_deleteitem(req){
+  return 'Delete From `central`.`menu` Where Id=' + req.body.id;
+}
+
 module.exports = {
   query_getmenuitems,
   query_getmenuitem,
   query_addmenuitem,
   query_selectlastinserteditem,
-  query_editmenuitem
+  query_editmenuitem,
+  query_getannouncements,
+  query_deleteitem
 }
