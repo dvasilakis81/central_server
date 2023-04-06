@@ -4,6 +4,7 @@ var os = require("os");
 const db = require('../../dbConfig');
 const path = require('path');
 const util = require('util');
+var fs = require('fs');
 
 async function getMediaItems(req, res, next) {
 
@@ -48,6 +49,20 @@ async function addMediaToDirectory(req, res, next) {
   return ret;
 }
 
+async function deleteMediaFromDirectory(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_getmediaitem(req));
+    if (rows && rows.length > 0){
+       var localPath = global.appRoot + '/' + rows[0].Url;
+       fs.unlinkSync(localPath);
+    }
+
+    return rows[0];
+  } catch (error) {
+    next(error);
+  }
+}
 async function deleteItem(req, res, next) {
 
   try {
@@ -62,5 +77,6 @@ module.exports = {
   getMediaItems,
   addMediaItem,
   addMediaToDirectory,
+  deleteMediaFromDirectory,
   deleteItem
 }

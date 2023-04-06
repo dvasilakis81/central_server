@@ -2,12 +2,6 @@ const util = require('util');
 const helper = require('../../helpermethods');
 
 function query_getpageitems(req) {
-
-  // return util.format('SELECT * FROM "Ordering"."Contract" as c ' + 
-  // 'INNER JOIN "Ordering"."Account" as a ' +
-  // ' ON a."ContractId"=c."Id"')
-  //return 'Select * From `pages`';
-
   return 'SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl,\'taborder\',t.OrderNo)) from tabs t where t.PageId=p.Id)) as tabsInfo, json_array((select GROUP_CONCAT(json_object(\'pageid\',c.PageId,\'commentid\',c.Id, \'firstname\',c.Firstname, \'lastname\',c.Lastname,\'content\',c.Content, \'created\',c.Created)) from comments c where c.PageId=p.Id)) as comments FROM pages p';
 }
 function query_getpageitem(req) {

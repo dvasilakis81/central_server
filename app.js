@@ -24,6 +24,7 @@ var dbMenuItems = require('./MySql/API/MenuItems/MenuItemsAPI');
 var dbPageItems = require('./Mysql/API/PageItems/PageItemsAPI');
 var dbMediaItems = require('./Mysql/API/MediaItems/MediaItemsAPI');
 var dbAnnouncements = require('./Mysql/API/Announcements/AnnouncementsAPI');
+var dbCategories = require('./Mysql/API/Categories/CategoriesAPI');
 var dbItems = require('./Mysql/API/Items/ItemsAPI');
 var dbErrorItems = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
 
@@ -43,6 +44,9 @@ app.post('/getPageInfo', dbPageItems.getPageInfo);
 app.get('/getAnnouncements', dbAnnouncements.getAnnouncements);
 app.post('/addAnnouncement', dbAnnouncements.addAnnouncement);
 app.post('/editAnnouncement', dbAnnouncements.editAnnouncement);
+app.get('/getCategories', dbCategories.getCategories);
+app.post('/addCategories', dbCategories.addCategory);
+app.post('/editCategories', dbCategories.editCategory);
 app.post('/deleteItem', dbItems.deleteItem);
 
 // view engine setup
@@ -56,14 +60,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use(express.static(path.join(__dirname, '/build')))
+app.use(express.static(path.join(__dirname, '/build')));
 app.use((req, res) => {
-  console.log('Redirect to index.html');
   res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
   res.sendFile(path.join(__dirname, '/build/index.html'));
 })
 app.all('/*', function (req, res, next) {
-  console.log('Accessing all urls except all above ...')
   res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
   res.sendFile(path.join(__dirname, '/build/index.html'));
 })
@@ -76,7 +78,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  dbErrorItems.addErrorItem(err);
+  dbErrorItems.addErrorItem(err, next);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

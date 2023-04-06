@@ -21,14 +21,13 @@ async function getErrorItem(req, res, next) {
   }
 }
 
-async function addErrorItem(req, res, next) {
+async function addErrorItem(err, next) {
 
   try {
-    await db.query(queries.query_adderroritem(req));
+    await db.query(queries.query_adderroritem(err));
     const [rows] = await db.query(queries.query_selectlastinserteditem('error'));
     return rows[0];
-  } catch (error) {
-    console.log(error);
+  } catch (error) {    
     next(error);
   }
 }
