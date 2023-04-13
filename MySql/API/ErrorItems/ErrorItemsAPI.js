@@ -1,5 +1,4 @@
 const methods = require('../ErrorItems/Methods');
-var pool = require('../../dbConfig').pool;
 
 async function getErrorItems(req, res, next) {  
   var errorItems = await methods.getErrorItems(req, res, next);

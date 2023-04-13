@@ -2,7 +2,7 @@ const util = require('util');
 const helper = require('../../helpermethods');
 
 function query_getcategories(req) {
-  return 'Select * From `categories` Order By OrderNo Asc';
+  return 'Select * From `categories`';
 }
 function query_getcategory(req) {
   var id = req.body.id;

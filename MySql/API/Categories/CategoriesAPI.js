@@ -2,7 +2,6 @@ const methods = require('./Methods');
 
 async function getCategories(req, res, next) {  
   var categories = await methods.getCategories(req, res, next);
-  res.set('Access-Control-Allow-Origin', '*');
   res.status(200).json(categories);
 }
 async function addCategory(req, res, next) {  

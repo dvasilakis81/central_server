@@ -1,20 +1,25 @@
 const methods = require('../MenuItems/Methods');
-var pool = require('../../dbConfig').pool;
 
-async function getMenuItems(req, res, next) {  
-  var menuItems = await methods.getMenuItems(req, res, next);
-  res.set('Access-Control-Allow-Origin', '*');
+async function getMenuItems(req, res, next) {
+  var menuItems = await methods.getMenuItems(req, res, next);  
   res.status(200).json(menuItems);
 }
 
-async function addMenuItem(req, res, next) {  
-  var menuItems = await methods.addMenuItem(req, res, next);
+async function getServiceItems(req, res, next) {
+  var items = await methods.getServiceItems(req, res, next);  
+  res.status(200).json(items);
+}
+async function addMenuItem(req, res, next) {
+  var menuItems = await methods.addMenuItem(req, res, next);  
   res.status(200).json(menuItems);
 }
-
-async function editMenuItem(req, res, next) {  
-  var menuItems = await methods.editMenuItem(req, res, next);
-  var menuItem = await methods.getMenuItem(req, res, next);
+async function editMenuItem(req, res, next) {
+  var editResponse = await methods.editMenuItem(req, res, next);
+  if (editResponse.affectedRows > 0) {
+    await methods.addMenuCategories(req, res, next, req.body.id);
+    await methods.fixMenuItemsOrderNo(req, res, next);    
+    menuItem = await methods.getMenuItem(req, res, next);
+  }
   res.status(200).json(menuItem);
 }
 
@@ -24,7 +29,9 @@ async function getAnnouncements(req, res, next) {
 }
 module.exports = {
   getMenuItems,
+  getServiceItems,
   addMenuItem,
   editMenuItem,
-  getAnnouncements
+  getAnnouncements,
+
 }

@@ -1,5 +1,4 @@
 const methods = require('./Methods');
-var pool = require('../../dbConfig').pool;
 
 async function getPageItems(req, res, next) {
   var pageItems = await methods.getPageItems(req, res, next);

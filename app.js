@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 app.get('/getMenuItems', dbMenuItems.getMenuItems);
+app.get('/getServiceItems', dbMenuItems.getServiceItems);
 app.get('/getMediaItems', dbMediaItems.getMediaItems);
 app.post('/addMenuItem', dbMenuItems.addMenuItem);
 app.post('/editMenuItem', dbMenuItems.editMenuItem);

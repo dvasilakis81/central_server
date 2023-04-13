@@ -1,6 +1,5 @@
 var queries = require('./Queries');
 const db = require('../../dbConfig');
-const { json } = require('body-parser');
 
 async function getPageItems(req, res, next) {
 
