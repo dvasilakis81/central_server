@@ -16,16 +16,24 @@ function getCategoriesInfo() {
 function query_getmenuitems() {
   return 'Select *' + getCategoriesInfo() + 'from menu m where MenuItem=1 Order By MenuOrderNo ASC';
 }
+function query_getcategoryannouncements() {
+  return ',json_array((select GROUP_CONCAT(json_object(\'Id\', a.Id, \'Title\', a.Title, \'Description\', a.Description )) ' +
+    'from announcements a ' +
+    'inner join announcementcategories anc on a.Id=anc.announcementid ' +
+    'where cat.Id=anc.categoryid and a.Hidden =0 ' +
+    ')) as announcementsInfo '
+}
 function query_getserviceitemsbygroup() {
-  return 'Select *, json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' + 
+  return 'Select *, json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
     '\'Url\', m.Url, \'ServiceOrderNo\', m.ServiceOrderNo, ' +
     '\'ImageService\', m.ImageService, \'ImageMenu\', m.ImageMenu, \'Hidden\', m.Hidden)) ' +
     'from menu m ' +
     'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
     'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo ' +
-    'from categories cat inner join servicecategories sc on cat.Id=sc.categoryid ' +
+     query_getcategoryannouncements() + 
+    'from categories cat left join servicecategories sc on cat.Id=sc.categoryid ' +
     'group by Id ' +
-    'order by cat.OrderNo desc, cat.Name asc ';    
+    'order by cat.OrderNo desc, cat.Name asc ';
 }
 function query_getserviceitems() {
   return 'Select *' + getCategoriesInfo() + ' from menu m where ServiceItem=1 Order By ServiceOrderNo ASC';

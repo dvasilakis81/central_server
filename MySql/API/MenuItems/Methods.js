@@ -41,6 +41,12 @@ async function getServiceItemsByGroup(req, res, next) {
       var ti = JSON.parse(rows[i].servicesInfo);
       var t2 = '[' + ti + ']';
       rows[i].servicesInfo = JSON.parse(t2);
+
+      if (rows[i].announcementsInfo) {
+        var ti = JSON.parse(rows[i].announcementsInfo);
+        var t2 = '[' + ti + ']';
+        rows[i].announcementsInfo = JSON.parse(t2);
+      }
     }
 
     return rows;

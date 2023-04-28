@@ -18,8 +18,7 @@ async function editAnnouncement(req, res, next) {
     if (announcement && announcement.length > 0) {
       await methods.addCategories(req, res, next, announcement[0].Id);
       res.status(200).json(announcement[0]);
-    }
-    else {
+    } else {
       await methods.addCategories(req, res, next, announcement.id);
       res.status(200).json(announcement);
     }
