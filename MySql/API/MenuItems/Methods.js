@@ -33,6 +33,21 @@ async function getServiceItems(req, res, next) {
   }
 }
 
+async function getServiceItemsByGroup(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_getserviceitemsbygroup());
+    for (var i = 0; i < rows.length; i++) {
+      var ti = JSON.parse(rows[i].servicesInfo);
+      var t2 = '[' + ti + ']';
+      rows[i].servicesInfo = JSON.parse(t2);
+    }
+
+    return rows;
+  } catch (error) {
+    next(error);
+  }
+}
 async function getMenuItem(req, res, next) {
 
   try {
@@ -55,16 +70,16 @@ async function addMenuItem(req, res, next) {
     const [rows] = await db.query(queries.query_selectlastinserteditem('menu'));
     await db.query(queries.query_addmenuitemcategories(rows[0], req.body.categories));
     await db.query(queries.query_editmenuserviceitemsorderno(req));
-    
+
     return rows[0];
-  } catch (error) {   
+  } catch (error) {
     next(error);
   }
 }
 
 async function editMenuItem(req, res, next) {
 
-  try {    
+  try {
     const [rows] = await db.query(queries.query_editmenuitem(req));
     return rows;
   } catch (error) {
@@ -75,11 +90,14 @@ async function editMenuItem(req, res, next) {
 
 async function fixMenuItemsOrderNo(req, res, next) {
 
-  try {    
+  try {
     var sqlQuery = queries.query_editmenuserviceitemsorderno(req);
-    const [rows] = await db.query(sqlQuery);
-    return rows;
-  } catch (error) {    
+    if (sqlQuery) {
+      const [rows] = await db.query(sqlQuery);
+      return rows;
+    }
+    return '';
+  } catch (error) {
     next(error);
   }
 }
@@ -106,6 +124,7 @@ async function addMenuCategories(req, res, next, menuitemid) {
 module.exports = {
   getMenuItems,
   getServiceItems,
+  getServiceItemsByGroup,
   getMenuItem,
   addMenuItem,
   addMenuCategories,

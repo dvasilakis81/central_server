@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
 });
 app.get('/getMenuItems', dbMenuItems.getMenuItems);
 app.get('/getServiceItems', dbMenuItems.getServiceItems);
+app.get('/getServiceItemsByGroup', dbMenuItems.getServiceItemsByGroup);
 app.get('/getMediaItems', dbMediaItems.getMediaItems);
 app.post('/addMenuItem', dbMenuItems.addMenuItem);
 app.post('/editMenuItem', dbMenuItems.editMenuItem);

@@ -25,7 +25,7 @@ const pool = mysql2.createPool({
 
 const promisePool = pool.promise();
 var params = {};
-//console.log('CONNECTION_STRING: ' + JSON.stringify(pool.PoolOption.host));  
+
 module.exports = {
   params,
   promisePool,

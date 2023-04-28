@@ -14,10 +14,15 @@ async function editAnnouncement(req, res, next) {
   var announcements = await methods.editAnnouncement(req, res, next);
   if (announcements && announcements.affectedRows > 0) {
     var announcement = await methods.getAnnouncement(req, res, next);
-    if (announcement && announcement.length > 0)
+
+    if (announcement && announcement.length > 0) {
+      await methods.addCategories(req, res, next, announcement[0].Id);
       res.status(200).json(announcement[0]);
-    else
+    }
+    else {
+      await methods.addCategories(req, res, next, announcement.id);
       res.status(200).json(announcement);
+    }
   } else {
     var serverResponse = {};
     serverResponse.errormessage = 'Failed to affect database row';
