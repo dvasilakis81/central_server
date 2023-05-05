@@ -23,6 +23,14 @@ async function getAnnouncement(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_getannouncement(req));
+    if (rows) {
+      for (var i = 0; i < rows.length; i++) {
+        var ti = JSON.parse(rows[i].categoriesInfo);
+        var t2 = '[' + ti + ']';
+        rows[i].categoriesInfo = JSON.parse(t2);
+      }
+    }
+
     return rows;
   } catch (error) {
     next(error);

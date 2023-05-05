@@ -11,7 +11,7 @@ function query_selectlastinserteditem(table) {
   return util.format('SELECT * FROM `%s` WHERE `id`= LAST_INSERT_ID()', table);
 }
 function query_getpageinfo(table, url) {
-  return util.format('SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl, \'taborder\',t.OrderNo)) from tabs t where t.pageid=p.Id order by orderno asc)) as tabsInfo, json_array((select GROUP_CONCAT(json_object(\'pageid\',c.PageId,\'commentid\',c.Id, \'firstname\',c.Firstname, \'lastname\',c.Lastname,\'content\',c.Content, \'created\',c.Created)) from comments c where c.PageId=p.Id)) as comments FROM `%s` as p WHERE `Url`= %s', table, helper.addQuotes(url));
+  return util.format('SELECT *,json_array((select GROUP_CONCAT(json_object(\'pageid\',t.PageId,\'tabid\',t.TabId, \'tabtitle\',t.TabTitle, \'taburl\',t.TabUrl, \'taborder\',t.OrderNo)) from tabs t where t.pageid=p.Id order by orderno asc)) as tabsInfo, json_array((select GROUP_CONCAT(json_object(\'pageid\',c.PageId,\'commentid\',c.Id, \'firstname\',c.Firstname, \'lastname\',c.Lastname,\'content\',c.Content, \'created\',c.Created)) from comments c where c.PageId=p.Id)) as comments FROM `%s` as p WHERE Url= %s', table, helper.addQuotes(url));
 }
 function query_addpageitem(req) {
 

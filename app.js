@@ -47,8 +47,8 @@ app.get('/getAnnouncements', dbAnnouncements.getAnnouncements);
 app.post('/addAnnouncement', dbAnnouncements.addAnnouncement);
 app.post('/editAnnouncement', dbAnnouncements.editAnnouncement);
 app.get('/getCategories', dbCategories.getCategories);
-app.post('/addCategories', dbCategories.addCategory);
-app.post('/editCategories', dbCategories.editCategory);
+app.post('/addCategory', dbCategories.addCategory);
+app.post('/editCategory', dbCategories.editCategory);
 app.post('/deleteItem', dbItems.deleteItem);
 
 // view engine setup

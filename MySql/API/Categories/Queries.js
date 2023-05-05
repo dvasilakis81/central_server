@@ -27,7 +27,7 @@ function query_editcategory(req) {
   var name = req.body.name;
   var shortname = req.body.shortname;
 
-  var sqlQuery = util.format('UPDATE `central`.`category` SET Name=%s, ShortName=%s WHERE Id=%s',
+  var sqlQuery = util.format('UPDATE `central`.`categories` SET Name=%s, ShortName=%s WHERE Id=%s',
     helper.addQuotes(name),
     helper.addQuotes(shortname),
     id);

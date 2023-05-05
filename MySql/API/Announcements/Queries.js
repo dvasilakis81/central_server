@@ -22,7 +22,7 @@ function query_getannouncement(req) {
   // 'INNER JOIN "Ordering"."Account" as a ' +
   // ' ON a."ContractId"=c."Id"')
   var id = req.body.id;
-  var sqlQuery = 'Select * ' + getCategoriesInfo() + ' From `central`.`announcements` as a Where Id =' + id
+  var sqlQuery = 'Select * ' + getCategoriesInfo() + ' From `central`.`announcements` as a Where Id=' + id
   return sqlQuery;
 }
 function query_selectlastinserteditem(table) {
@@ -36,26 +36,23 @@ function query_addannouncement(req) {
   // 'INNER JOIN "Ordering"."Account" as a ' +
   // ' ON a."ContractId"=c."Id"')
   var title = req.body.title;
-  var description = req.body.description;
-  var url = req.body.url;
-  var color = req.body.color;
-  var backgroundColor = req.body.backgroundColor;
+  var description = req.body.description;  
   var image = req.body.image;
   var showonfirstpage = req.body.Showonfirstpage;
   var hidden = req.body.Hidden;
-  var orderNo = req.body.OrderNo;
 
-  var sqlQuery = 'INSERT INTO `central`.`announcements` (Title,Description, Url, Color, BackgroundColor, image, Showonfirstpage, Hidden, OrderNo) VALUES ';
-  sqlQuery += util.format('(%s,%s,%s,%s,%s,%s,%s,%s)',
+  // var url = req.body.url;
+  // var color = req.body.color;
+  // var backgroundColor = req.body.backgroundColor;
+  // var orderNo = req.body.OrderNo;  
+  //var sqlQuery = 'INSERT INTO `central`.`announcements` (Title,Description, Url, Color, BackgroundColor, image, Showonfirstpage, Hidden, OrderNo) VALUES ';
+  var sqlQuery = 'INSERT INTO `central`.`announcements` (Title,Description,image,Showonfirstpage,Hidden) VALUES ';
+  sqlQuery += util.format('(%s,%s,%s,%s,%s)',
     helper.addQuotes(title),
     helper.addQuotes(description),
-    helper.addQuotes(url),
-    helper.addQuotes(color),
-    helper.addQuotes(backgroundColor),
     helper.addQuotes(image),
     showonfirstpage || 0,
-    hidden || 0,
-    orderNo || 1);
+    hidden || 0);
 
   return sqlQuery;
 }
@@ -68,23 +65,20 @@ function query_editannouncement(req) {
   var title = req.body.title;
   var description = req.body.description;
   var url = req.body.url;
-  var color = req.body.color;
-  var backgroundColor = req.body.backgroundColor;
+  //var color = req.body.color;
+  //var backgroundColor = req.body.backgroundColor;
   var image = req.body.image;
   var showonfirstpage = req.body.showonfirstpage;
   var hidden = req.body.hidden;
-  var orderNo = req.body.orderNo;
+  //var orderNo = req.body.orderNo;
 
-  var sqlQuery = util.format('UPDATE `central`.`announcements` SET Title=%s,Description=%s, Url=%s, color=%s, backgroundColor=%s, image=%s, showonfirstpage=%s, hidden=%s, orderNo=%s WHERE Id=%s',
+  //var sqlQuery = util.format('UPDATE `central`.`announcements` SET Title=%s,Description=%s, Url=%s, color=%s, backgroundColor=%s, image=%s, showonfirstpage=%s, hidden=%s, orderNo=%s WHERE Id=%s',
+  var sqlQuery = util.format('UPDATE `central`.`announcements` SET Title=%s,Description=%s,image=%s,showonfirstpage=%s,hidden=%s WHERE Id=%s',
     helper.addQuotes(title),
-    helper.addQuotes(description),
-    helper.addQuotes(url),
-    helper.addQuotes(color),
-    helper.addQuotes(backgroundColor),
+    helper.addQuotes(description),    
     helper.addQuotes(image),
     showonfirstpage,
-    hidden,
-    orderNo,
+    hidden,    
     id);
 
   return sqlQuery;

@@ -73,7 +73,6 @@ function query_addmenuitem(req) {
 
   return sqlQuery;
 }
-
 function query_addmenuitemcategories(menuitemid, categories) {
 
   var sqlQuery = 'INSERT INTO `servicecategories` (serviceid, categoryid) VALUES ';
@@ -82,7 +81,6 @@ function query_addmenuitemcategories(menuitemid, categories) {
 
   return sqlQuery;
 }
-
 function query_editmenuserviceitemsorderno(req) {
 
   var id = req.body.id;
