@@ -5,8 +5,8 @@ async function getCategories(req, res, next) {
   res.status(200).json(categories);
 }
 async function addCategory(req, res, next) {  
-  var categorys = await methods.addCategory(req, res, next);
-  res.status(200).json(categorys);
+  var categoryItem = await methods.addCategory(req, res, next);
+  res.status(200).json(categoryItem);
 }
 async function editCategory(req, res, next) {  
   await methods.editCategory(req, res, next);
