@@ -4,7 +4,8 @@ const db = require('../../dbConfig');
 async function getCategories(req, res, next) {
 
   try {
-    const [rows1] = await db.query(queries.query_getcategories(req));    
+    //const [rows1] = await db.query(queries.query_getcategories(req));
+    const [rows1] = await db.query(queries.query_getcategoriesLevelZero(req));
     for (var i = 0; i < rows1.length; i++) {
       rows1[i].candelete = false;
       var [rows2] = await db.query(queries.query_categoryhasservices(rows1[i].Id));
@@ -65,7 +66,7 @@ async function deleteItem(req, res, next) {
 }
 
 module.exports = {
-  getCategories,
+  getCategories,  
   getCategory,
   addCategory,
   editCategory,

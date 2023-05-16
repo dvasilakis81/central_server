@@ -23,14 +23,18 @@ function query_getcategoryannouncements() {
     'where cat.Id=anc.categoryid and a.Hidden =0 ' +
     ')) as announcementsInfo '
 }
-function query_getserviceitemsbygroup() {
-  return 'Select *, json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
+function query_getcategoryservices() {
+  return ' json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
     '\'Url\', m.Url, \'ServiceOrderNo\', m.ServiceOrderNo, ' +
     '\'ImageService\', m.ImageService, \'ImageMenu\', m.ImageMenu, \'Hidden\', m.Hidden)) ' +
     'from menu m ' +
     'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
-    'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo ' +
-     query_getcategoryannouncements() + 
+    'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
+}
+function query_getserviceitemsbygroup() {
+  return 'Select *, ' +
+    query_getcategoryservices() +
+    query_getcategoryannouncements() +
     'from categories cat left join servicecategories sc on cat.Id=sc.categoryid ' +
     'group by Id ' +
     'order by cat.OrderNo desc, cat.Name asc ';

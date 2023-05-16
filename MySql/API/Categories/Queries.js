@@ -4,6 +4,9 @@ const helper = require('../../helpermethods');
 function query_getcategories(req) {
   return 'Select * From `categories` Order By Name Asc';
 }
+function query_getcategoriesLevelZero(req) {
+  return 'Select * From `categories` Where ParentId = 0 Order By Name Asc';
+}
 function query_getcategory(req) {
   var id = req.body.id;
   return 'Select * From `central`.`categories` Where Id =' + id;
@@ -46,6 +49,7 @@ function query_categoryhasannouncements(categoryid){
 }
 module.exports = {
   query_getcategories,  
+  query_getcategoriesLevelZero,
   query_getcategory,
   query_addcategory,
   query_selectlastinserteditem,
