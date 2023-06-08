@@ -5,7 +5,10 @@ function query_getcategories(req) {
   return 'Select * From `categories` Order By Name Asc';
 }
 function query_getcategoriesLevelZero(req) {
-  return 'Select * From `categories` Where ParentId = 0 Order By Name Asc';
+  return 'Select * From `categories` Order By Name Asc';
+}
+function query_getallcategorieswithnosubcategories(req) {
+  return 'Select * From `categories` Where HasSubCategories = 0 Order By Name Asc';
 }
 function query_getcategory(req) {
   var id = req.body.id;
@@ -17,9 +20,11 @@ function query_selectlastinserteditem(table) {
 function query_addcategory(req) {
   
   var name = req.body.categoryname;  
-  
-  var sqlQuery = 'INSERT INTO `central`.`categories` (Name) VALUES ';
-  sqlQuery += util.format('(%s)', helper.addQuotes(name));
+  var hasSubCategories = req.body.hassubcategories;
+  var parentId = req.body.parentid;
+
+  var sqlQuery = 'INSERT INTO `central`.`categories` (Name, HasSubCategories, ParentId) VALUES ';
+  sqlQuery += util.format('(%s, %s, %s)', helper.addQuotes(name), hasSubCategories, parentId);
 
   return sqlQuery;
 }
@@ -27,20 +32,20 @@ function query_editcategory(req) {
 
   var id = req.body.id;
   var name = req.body.name;
-  var shortname = req.body.shortname;
+  var hasSubCategories = req.body.hassubcategories;
+  var parentid = req.body.parentid;
 
-  var sqlQuery = util.format('UPDATE `central`.`categories` SET Name=%s, ShortName=%s WHERE Id=%s',
+  var sqlQuery = util.format('UPDATE `central`.`categories` SET Name=%s, HasSubCategories=%s, ParentId=%s  WHERE Id=%s',
     helper.addQuotes(name),
-    helper.addQuotes(shortname),
+    hasSubCategories,
+    parentid,
     id);
   
   return sqlQuery;
 }
-
 function query_deleteitem(req){
   return 'Delete From `central`.`categories` Where Id=' + req.body.id;
 }
-
 function query_categoryhasservices(categoryid){
   return 'Select * From `central`.`servicecategories` Where categoryid=' + categoryid;
 }
@@ -50,6 +55,7 @@ function query_categoryhasannouncements(categoryid){
 module.exports = {
   query_getcategories,  
   query_getcategoriesLevelZero,
+  query_getallcategorieswithnosubcategories,
   query_getcategory,
   query_addcategory,
   query_selectlastinserteditem,

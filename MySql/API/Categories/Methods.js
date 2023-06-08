@@ -7,13 +7,18 @@ async function getCategories(req, res, next) {
     //const [rows1] = await db.query(queries.query_getcategories(req));
     const [rows1] = await db.query(queries.query_getcategoriesLevelZero(req));
     for (var i = 0; i < rows1.length; i++) {
-      rows1[i].candelete = false;
-      var [rows2] = await db.query(queries.query_categoryhasservices(rows1[i].Id));
-      if (rows2 && rows2.length === 0 ){
-        var [rows3] = await db.query(queries.query_categoryhasannouncements(rows1[i].Id));      
-        if (rows3.length === 0)
-          rows1[i].candelete = true
-      }      
+      if (rows1[i].HasSubCategories === 1) {
+        rows1[i].candelete = false;
+      }
+      else if (rows1[i].HasSubCategories === 0) {
+        rows1[i].candelete = false;
+        var [rows2] = await db.query(queries.query_categoryhasservices(rows1[i].Id));
+        if (rows2 && rows2.length === 0) {
+          var [rows3] = await db.query(queries.query_categoryhasannouncements(rows1[i].Id));
+          if (rows3.length === 0)
+            rows1[i].candelete = true
+        }
+      }
     }
 
     return rows1;
@@ -21,6 +26,18 @@ async function getCategories(req, res, next) {
     next(error);
   }
 }
+
+async function getAdminCategoriesToSelect(req, res, next) {
+
+  try {
+    //const [rows1] = await db.query(queries.query_getcategories(req));
+    const [rows1] = await db.query(queries.query_getallcategorieswithnosubcategories(req));
+    return rows1;
+  } catch (error) {
+    next(error);
+  }
+}
+
 
 async function getCategory(req, res, next) {
 
@@ -66,7 +83,8 @@ async function deleteItem(req, res, next) {
 }
 
 module.exports = {
-  getCategories,  
+  getCategories,
+  getAdminCategoriesToSelect,
   getCategory,
   addCategory,
   editCategory,

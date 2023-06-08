@@ -16,12 +16,11 @@ function query_getannouncements(req) {
 
   //  return 'Select * ' + getCategoriesInfo() + ' From `central`.`announcements` Order By OrderNo Asc';
 }
-function query_getannouncement(req) {
+function query_getannouncement(id) {
 
   // return util.format('SELECT * FROM "Ordering"."Contract" as c ' + 
   // 'INNER JOIN "Ordering"."Account" as a ' +
   // ' ON a."ContractId"=c."Id"')
-  var id = req.body.id;
   var sqlQuery = 'Select * ' + getCategoriesInfo() + ' From `central`.`announcements` as a Where Id=' + id
   return sqlQuery;
 }

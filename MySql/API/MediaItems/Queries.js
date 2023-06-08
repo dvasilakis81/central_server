@@ -25,7 +25,7 @@ function query_addmediaitem(req, url) {
   var height = sizeOf(url).height || 0;
   var mimeType = req.files.file.mimetype || '';
   var encoding = req.files.file.encoding || '';
-  var size = req.files.file.size || '';
+  var size = req.files.file.size || ''; 
 
   var sqlQuery = 'INSERT INTO `media` (Name, Url, Width, Height, MimeType, Encoding, Size) VALUES ';
   sqlQuery += util.format('(%s,%s,%s,%s,%s,%s,%s)',

@@ -27,6 +27,7 @@ var dbAnnouncements = require('./Mysql/API/Announcements/AnnouncementsAPI');
 var dbCategories = require('./Mysql/API/Categories/CategoriesAPI');
 var dbItems = require('./Mysql/API/Items/ItemsAPI');
 var dbErrorItems = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
+var dbUsers = require('./Mysql/API/Login/LoginUserAPI');
 
 app.get("/", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -50,6 +51,10 @@ app.get('/getCategories', dbCategories.getCategories);
 app.post('/addCategory', dbCategories.addCategory);
 app.post('/editCategory', dbCategories.editCategory);
 app.post('/deleteItem', dbItems.deleteItem);
+
+app.post('/loginUser', dbUsers.loginUser);
+app.post('/createUser', dbUsers.createUser);
+app.post('/updateUser', dbUsers.updateUser);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

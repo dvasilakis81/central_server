@@ -74,7 +74,8 @@ async function addMenuItem(req, res, next) {
   try {
     await db.query(queries.query_addmenuitem(req));
     const [rows] = await db.query(queries.query_selectlastinserteditem('menu'));
-    await db.query(queries.query_addmenuitemcategories(rows[0], req.body.categories));
+    if (req.body.categories)
+      await db.query(queries.query_addmenuitemcategories(rows[0], req.body.categories));
     await db.query(queries.query_editmenuserviceitemsorderno(req));
 
     return rows[0];

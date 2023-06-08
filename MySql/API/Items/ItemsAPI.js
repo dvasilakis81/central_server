@@ -3,6 +3,7 @@ const announcementMethods = require('../Announcements/Methods');
 const pageMethods = require('../PageItems/Methods');
 const mediaMethods = require('../MediaItems/Methods');
 const categoriesMethods = require('../Categories/Methods');
+const userMethods = require('../Login/Methods');
 
 async function deleteItem(req, res, next) {
   var serverResponse = null;
@@ -21,12 +22,12 @@ async function deleteItem(req, res, next) {
         res.status(205).json(undefined);
     } else
       res.status(450).json('Internal Server Error');
-
-
   } else if (req.body.kind == 4)
-    rows = serverResponse = await announcementMethods.deleteItem(req, res, next);
-  else if (req.body.kind == 5)
+    serverResponse = await announcementMethods.deleteItem(req, res, next);
+  else if (req.body.kind == 5)  
     rows = serverResponse = await categoriesMethods.deleteItem(req, res, next);
+  else if (req.body.kind == 6)  
+    rows = serverResponse = await userMethods.deleteUser(req, res, next);
 
   if (rows && rows.affectedRows > 0)
     res.status(200).json(req.body);

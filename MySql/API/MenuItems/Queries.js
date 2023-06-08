@@ -31,6 +31,14 @@ function query_getcategoryservices() {
     'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
     'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
 }
+function query_getcategorysubcategories() {
+  return ' json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
+    '\'Url\', m.Url, \'ServiceOrderNo\', m.ServiceOrderNo, ' +
+    '\'ImageService\', m.ImageService, \'ImageMenu\', m.ImageMenu, \'Hidden\', m.Hidden)) ' +
+    'from menu m ' +
+    'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
+    'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
+}
 function query_getserviceitemsbygroup() {
   return 'Select *, ' +
     query_getcategoryservices() +
@@ -61,7 +69,7 @@ function query_addmenuitem(req) {
   var menuOrderNo = req.body.menuOrderNo;
   var serviceOrderNo = req.body.serviceOrderNo;
 
-  var sqlQuery = 'INSERT INTO `menu` (Name, Url, PageUrl, ImageService, ImageMenu, Hidden, IsDeleted MenuItem, ServiceItem, MenuOrderNo, ServiceOrderNo) VALUES ';
+  var sqlQuery = 'INSERT INTO `menu` (Name, Url, PageUrl, ImageService, ImageMenu, Hidden, IsDeleted, MenuItem, ServiceItem, MenuOrderNo, ServiceOrderNo) VALUES ';
   sqlQuery += util.format('(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
     helper.addQuotes(name),
     helper.addQuotes(url),
@@ -79,11 +87,13 @@ function query_addmenuitem(req) {
 }
 function query_addmenuitemcategories(menuitemid, categories) {
 
-  var sqlQuery = 'INSERT INTO `servicecategories` (serviceid, categoryid) VALUES ';
-  for (var i = 0; i < categories.length; i++)
-    sqlQuery += util.format('(%s,%s)%s', menuitemid, categories[i].Id, (i < categories.length - 1 ? ',' : ''));
+  if (categories) {
+    var sqlQuery = 'INSERT INTO `servicecategories` (serviceid, categoryid) VALUES ';
+    for (var i = 0; i < categories.length; i++)
+      sqlQuery += util.format('(%s,%s)%s', menuitemid, categories[i].Id, (i < categories.length - 1 ? ',' : ''));
 
-  return sqlQuery;
+    return sqlQuery;
+  }
 }
 function query_editmenuserviceitemsorderno(req) {
 
@@ -109,9 +119,9 @@ function query_editmenuserviceitemsorderno(req) {
     if (menuItem === 1)
       sqlQuery = util.format('UPDATE `menu` SET MenuOrderNo=MenuOrderNo + 1 WHERE MenuOrderNo>=%s AND MenuOrderNo<=%s AND MenuItem=1 AND Id!=%s', menuOrderNo, oldMenuOrderNo, id);
   } else {
-    if (serviceItem === 1)
+    if (serviceItem === 1 || serviceItem === true)
       sqlQuery = util.format('UPDATE `menu` SET ServiceOrderNo=ServiceOrderNo + 1 WHERE ServiceOrderNo>=%s AND ServiceItem=1 AND Id!=%s', serviceOrderNo, id);
-    if (menuItem === 1)
+    if (menuItem === 1 || menuItem === true)
       sqlQuery = util.format('UPDATE `menu` SET MenuOrderNo=MenuOrderNo + 1 WHERE MenuOrderNo>=%s AND MenuItem=1 AND Id!=%s', menuOrderNo, id);
   }
 

@@ -1,5 +1,4 @@
 const methods = require('./Methods');
-var pool = require('../../dbConfig').pool;
 
 async function getMediaItems(req, res, next) {
   var mediaItems = await methods.getMediaItems(req, res, next);
