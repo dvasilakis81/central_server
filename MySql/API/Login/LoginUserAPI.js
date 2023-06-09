@@ -91,7 +91,6 @@ function createUser(req, res, next) {
 
   return ret;
 }
-
 async function deleteUser(req, res, next) {
 
   var id = req.body.Id;
@@ -105,7 +104,6 @@ async function deleteUser(req, res, next) {
     }
   })
 }
-
 async function loginUser(req, res, next) {
 
   var dbUser = await methods.checkLoginUserName(req, res, next);

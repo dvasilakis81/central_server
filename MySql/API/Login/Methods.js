@@ -44,8 +44,7 @@ async function deleteItem(req, res, next) {
 
 async function updateUser(req, res, next, hash) {
 
-  try {
-    
+  try {    
     const [rows] = await db.query(queries.query_updateuser(req, hash));
     return rows;
   } catch (error) {
