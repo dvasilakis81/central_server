@@ -1,11 +1,16 @@
 const util = require('util');
 const helper = require('../../helpermethods');
 
-function query_getusers(req) {
-  return 'Select * From `central`.`users` Order By Created Asc ';  
+function getUserRightsInfo() {
+  return ',json_array((select GROUP_CONCAT(json_object(\'Id\',ur.id, \'Rights\',ur.Rights)) ' +
+    'from userrights ur ' +
+    'where u.Id=ur.UserId)) as rightsInfo';
+}
+function query_getusers() {
+  return 'Select *' + getUserRightsInfo() + ' From `central`.`users` as u Order By Created Asc ';
 }
 function query_getuser(id) {
-  var sqlQuery = 'Select * From `central`.`users` Where Id=' + id
+  var sqlQuery = 'Select *' + getUserRightsInfo() + ' From `central`.`users` as u Where Id=' + id;
   return sqlQuery;
 }
 function query_selectlastinserteditem(table) {
@@ -18,7 +23,7 @@ function query_adduser(req) {
   var firstname = req.body.firstname;
   var lastname = req.body.lastname;
   var image = req.body.image;
-  var showonfirstpage = req.body.Showonfirstpage;  
+  var showonfirstpage = req.body.Showonfirstpage;
 
   var sqlQuery = 'INSERT INTO `central`.`users` (Username,Password,Firsname,Lastname,Role,Email) VALUES ';
   sqlQuery += util.format('(%s,%s,%s,%s,%s)',
@@ -30,7 +35,7 @@ function query_adduser(req) {
 
   return sqlQuery;
 }
-function query_edituser(req) {
+function query_edituser(req, hash) {
 
   var ret = '';
   var id = req.body.id;
@@ -78,7 +83,10 @@ function query_checkloginusername(req) {
   var sqlQuery = 'SELECT * FROM Users as u WHERE u.Username=' + helper.addQuotes(username);
   return sqlQuery;
 }
-
+function query_getuserrights(userid) {
+  var sqlQuery = 'SELECT * FROM userrights WHERE UserId=' + userid;
+  return sqlQuery;
+}
 function query_insertloginuser(req, hash) {
   var sqlQuery = util.format('INSERT INTO `central`.`users`(Username,Password,Role,Firstname,Lastname,Email) VALUES(%s,%s,%s,%s,%s,%s) ',
     helper.addQuotes(req.body.username),
@@ -90,14 +98,45 @@ function query_insertloginuser(req, hash) {
 
   return sqlQuery;
 }
+function query_adduserrights(req, user) {
+  var sqlQuery = util.format('INSERT INTO `central`.`userrights`(UserId, Rights) VALUES(%s,%s) ',
+    user.Id,
+    helper.addQuotes(JSON.stringify(req.body.rights)))
+
+  return sqlQuery;
+}
+function query_edituserrights(req) {
+  var sqlQuery = util.format('UPDATE `central`.`userrights` SET Rights=%s WHERE UserId=%s',
+    helper.addQuotes(JSON.stringify(req.body.rights)), req.body.id)
+
+  return sqlQuery;
+}
+function query_changepassword(req, hash) {
+  var sqlQuery = util.format('UPDATE `central`.`users` SET Password=%s WHERE Id=%s',
+    helper.addQuotes(hash), req.body.userid)
+
+  return sqlQuery;
+}
+function query_deleteuser(req) {
+  return 'Delete From `central`.`users` Where Id=' + req.body.id;
+}
+function query_deleteuserrights(req) {
+  return 'Delete From `central`.`userrights` Where UserId=' + req.body.id;
+}
 
 module.exports = {
   query_getusers,
   query_getuser,
   query_adduser,
   query_edituser,
+  query_deleteuser,
   query_selectlastinserteditem,
   query_additemcategories,
   query_checkloginusername,
-  query_insertloginuser
+  query_insertloginuser,
+  query_adduserrights,
+  query_getuserrights,
+  query_edituserrights,
+  query_deleteuserrights,
+  query_changepassword
 }

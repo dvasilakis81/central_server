@@ -21,9 +21,17 @@ async function getPageItems(req, res, next) {
         }
       }
 
-      var c1 = JSON.parse(rows[i].comments);
-      var c2 = '[' + c1 + ']';
-      rows[i].comments = JSON.parse(c2);
+      if (rows[i].comments) {
+        var c1 = JSON.parse(rows[i].comments);
+        var c2 = '[' + c1 + ']';
+        var pageComments = JSON.parse(c2);
+        pageComments.sort((a, b) => {
+          let da = new Date(a.created),
+            db = new Date(b.created);
+          return db - da;
+        });
+        rows[i].comments = pageComments;
+      }
     }
 
     return rows;
@@ -31,7 +39,6 @@ async function getPageItems(req, res, next) {
     next(error);
   }
 }
-
 async function getPageItem(req, res, next) {
 
   try {
@@ -41,7 +48,6 @@ async function getPageItem(req, res, next) {
     next(error);
   }
 }
-
 async function addPageTabs(req, res, next, pageItem) {
   try {
     await db.query(queries.query_deletepageitemtabs(pageItem));
@@ -51,7 +57,6 @@ async function addPageTabs(req, res, next, pageItem) {
     next(error);
   }
 }
-
 async function addPageItem(req, res, next) {
 
   try {
@@ -62,7 +67,6 @@ async function addPageItem(req, res, next) {
     next(error);
   }
 }
-
 async function editPageItem(req, res, next) {
 
   try {
@@ -73,7 +77,6 @@ async function editPageItem(req, res, next) {
     next(error);
   }
 }
-
 async function addPageInfo(req, res, next) {
 
   try {
@@ -84,7 +87,6 @@ async function addPageInfo(req, res, next) {
     next(error);
   }
 }
-
 async function getPageInfo(req, res, next) {
 
   try {
@@ -104,7 +106,13 @@ async function getPageInfo(req, res, next) {
 
       var c1 = JSON.parse(rows[i].comments);
       var c2 = '[' + c1 + ']';
-      rows[i].comments = JSON.parse(c2);
+      var pageComments = JSON.parse(c2);
+      pageComments.sort((a, b) => {
+        let da = new Date(a.created),
+          db = new Date(b.created);
+        return db - da;
+      });
+      rows[i].comments = pageComments;
     }
 
     return rows[0];
@@ -112,7 +120,6 @@ async function getPageInfo(req, res, next) {
     next(error);
   }
 }
-
 async function fixPageTitleIfIsTab(req) {
   try {
     await db.query(queries.query_fixpagetitleifistab(req));
@@ -120,12 +127,21 @@ async function fixPageTitleIfIsTab(req) {
     next(error);
   }
 }
-
 async function deleteItem(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_deleteitem(req));
     return rows;
+  } catch (error) {
+    next(error);
+  }
+}
+async function addPageComment(req, res, next) {
+
+  try {
+    await db.query(queries.query_addpagecomment(req));
+    const pageInfo = await getPageInfo(req, res, next);
+    return pageInfo;
   } catch (error) {
     next(error);
   }
@@ -140,5 +156,6 @@ module.exports = {
   getPageInfo,
   addPageTabs,
   fixPageTitleIfIsTab,
-  deleteItem
+  deleteItem,
+  addPageComment
 }

@@ -45,7 +45,13 @@ async function getServiceItemsByGroup(req, res, next) {
       if (rows[i].announcementsInfo) {
         var ti = JSON.parse(rows[i].announcementsInfo);
         var t2 = '[' + ti + ']';
-        rows[i].announcementsInfo = JSON.parse(t2);
+        var sortedAnnouncements = JSON.parse(t2);
+        sortedAnnouncements.sort((a, b) => {
+          let da = new Date(a.Created),
+            db = new Date(b.Created);
+          return db - da;
+        });
+        rows[i].announcementsInfo = sortedAnnouncements;
       }
     }
 

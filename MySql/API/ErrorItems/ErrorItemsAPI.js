@@ -4,7 +4,6 @@ async function getErrorItems(req, res, next) {
   var errorItems = await methods.getErrorItems(req, res, next);
   res.status(200).json(errorItems);
 }
-
 async function addErrorItem(req, res, next) {  
   var errorItems = await methods.addErrorItem(req, res, next);
   res.status(200).json(errorItems);

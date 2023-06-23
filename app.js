@@ -55,6 +55,8 @@ app.post('/loginUser', dbUsers.loginUser);
 app.post('/addUser', dbUsers.addUser);
 app.post('/editUser', dbUsers.editUser);
 app.get('/getUsers', dbUsers.getUsers);
+app.post('/changePassword', dbUsers.changePassword);
+app.post('/addPageComment', dbPageItems.addPageComment);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -23,8 +23,8 @@ function query_deleteuser(req) {
   var sqlQuery = util.format('DELETE FROM Users WHERE "Id"=%s', req.body.id);
   return sqlQuery;
 }
-function query_getuser(req) {
-  var sqlQuery = util.format('Select * FROM Users WHERE Id=%s', req.body.id);
+function query_getuser(userid) {
+  var sqlQuery = util.format('Select * FROM Users WHERE Id=%s', userid);
   return sqlQuery;
 }
 function query_updateuser(req, hash) {

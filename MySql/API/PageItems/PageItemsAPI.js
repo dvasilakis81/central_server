@@ -29,11 +29,21 @@ async function getPageInfo(req, res, next) {
   var pageInfo = await methods.getPageInfo(req, res, next);
   res.status(200).json(pageInfo);
 }
+async function addPageComment(req, res, next) {
+  var pageItem = await methods.addPageComment(req, res, next);
+
+  var serverResponse = {}
+  serverResponse.success = true;
+  serverResponse.itemadded = pageItem;
+  res.status(200).json(serverResponse);
+}
+
 module.exports = {
   getPageItems,
   addPageItem,
   editPageItem,
-  getPageInfo
+  getPageInfo,
+  addPageComment
 }
 
 // SELECT *,JSON_OBJECT("tabs", json_array(

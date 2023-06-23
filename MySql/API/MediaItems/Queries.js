@@ -21,11 +21,18 @@ function query_addmediaitem(req, url) {
   
   var name = Buffer.from(req.files.file.name, 'latin1').toString('utf8');
   var url = url;
-  var width = sizeOf(url).width || 0;
-  var height = sizeOf(url).height || 0;
+  var width = 0;
+  var height = 0;
+  try {
+    width = sizeOf(url).width || 0;
+    height = sizeOf(url).width || 0;
+  }
+  catch(error){
+  }
+  
   var mimeType = req.files.file.mimetype || '';
   var encoding = req.files.file.encoding || '';
-  var size = req.files.file.size || ''; 
+  var size = req.files.file.size || '';
 
   var sqlQuery = 'INSERT INTO `media` (Name, Url, Width, Height, MimeType, Encoding, Size) VALUES ';
   sqlQuery += util.format('(%s,%s,%s,%s,%s,%s,%s)',

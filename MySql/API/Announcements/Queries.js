@@ -12,7 +12,7 @@ function query_getannouncements(req) {
   return 'Select * ' +
     getCategoriesInfo() +
     ' From `central`.`announcements` as a ' +
-    ' Order By OrderNo Asc ';
+    ' Order By Created Asc ';
 
   //  return 'Select * ' + getCategoriesInfo() + ' From `central`.`announcements` Order By OrderNo Asc';
 }
@@ -86,7 +86,8 @@ function query_editannouncement(req) {
 //   return 'Select * From `central`.`announcements`';
 // }
 function query_deleteannouncement(req) {
-  return 'Delete From `central`.`announcements` Where Id=' + req.body.id;
+  var sqlQuery = 'Delete From `central`.`announcements` Where Id=' + req.body.id
+  return sqlQuery;
 }
 
 function query_additemcategories(itemid, categories) {

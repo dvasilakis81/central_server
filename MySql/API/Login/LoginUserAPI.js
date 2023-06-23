@@ -29,7 +29,7 @@ async function updateUserExecute(req, res, next, hash) {
 
   var dbUser = await updateUser(req, res, next, hash);
   if (dbUser.affectedRows === 1)
-    var updatedUser = await getUser(req, res, next);
+    var updatedUser = await getUser(req.body.id, next);
   res.status(200).json(updatedUser[0]);
 }
 const getUpdatedUser = (req, res, next) => {

@@ -3,7 +3,7 @@ const announcementMethods = require('../Announcements/Methods');
 const pageMethods = require('../PageItems/Methods');
 const mediaMethods = require('../MediaItems/Methods');
 const categoriesMethods = require('../Categories/Methods');
-const userMethods = require('../Login/Methods');
+const userMethods = require('../Users/Methods');
 
 async function deleteItem(req, res, next) {
   var serverResponse = null;
@@ -23,14 +23,18 @@ async function deleteItem(req, res, next) {
     } else
       res.status(450).json('Internal Server Error');
   } else if (req.body.kind == 4)
-    serverResponse = await announcementMethods.deleteItem(req, res, next);
-  else if (req.body.kind == 5)  
+    rows = serverResponse = await announcementMethods.deleteItem(req, res, next);
+  else if (req.body.kind == 5)
     rows = serverResponse = await categoriesMethods.deleteItem(req, res, next);
-  else if (req.body.kind == 6)  
-    rows = serverResponse = await userMethods.deleteUser(req, res, next);
+  else if (req.body.kind == 6)
+    rows = serverResponse = await userMethods.deleteItem(req, res, next);
 
-  if (rows && rows.affectedRows > 0)
-    res.status(200).json(req.body);
+  if (rows && rows.affectedRows > 0) {
+    var response = {};
+    response.success = true;
+    response.id = req.body.id
+    res.status(200).json(response);
+  }
   else
     res.status(709).json(serverResponse);
 }

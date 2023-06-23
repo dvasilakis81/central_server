@@ -10,26 +10,27 @@ async function getUsers(req, res, next) {
   res.status(200).json(users);
 }
 async function addUser(req, res, next) {
-  var ret = ''
-
   const username = req.body.username;
   const password = req.body.password;
-
   var saltRounds = bcryptNodejs.genSaltSync(1);
+
   bcryptNodejs.hash(password, saltRounds, null, async function (err, hash) {
     if (err)
-      helper.consoleLog(err)
+      helper.consoleLog(err);
     else {
       var dbUser = await methods.checkLoginUserName(req, res, next);
-      if (dbUser.length === 1)
+      if (dbUser && dbUser.length === 1)
         res.json({ success: false, message: 'A user with username ' + username + ' already exists!', token: token });
       else {
         var dbInsertedUser = await methods.addUser(req, res, next, hash);
-        if (dbInsertedUser)
+        if (dbInsertedUser) {
+          dbInsertedUser.success = true;
           res.status(200).json(dbInsertedUser);
+        }
         else {
           var serverResponse = {};
           serverResponse.errormessage = 'Failed to create user';
+          serverResponse.success = false;
           res.status(200).json(serverResponse);
         }
       }
@@ -38,26 +39,25 @@ async function addUser(req, res, next) {
 }
 async function editUser(req, res, next) {
 
-  var password = req.body.password;
-  if (password && password.length > 0) {
-    var saltRounds = bcryptNodejs.genSaltSync(1);
-    bcryptNodejs.hash(password, saltRounds, null, async function (err, hash) {
-      if (err)
-        res.status(201).json('Failed to create hash');
-      else
-        await editUserExecute(req, res, next, hash);
-    })
-  }
-  else
-    await editUserExecute(req, res, next, undefined);
+  // var password = req.body.password;
+  // if (password && password.length > 0) {
+  //   var saltRounds = bcryptNodejs.genSaltSync(1);
+  //   bcryptNodejs.hash(password, saltRounds, null, async function (err, hash) {
+  //     if (err)
+  //       res.status(201).json('Failed to create hash');
+  //     else
+  //       await editUserExecute(req, res, next, hash);
+  //   })
+  // }
+  // else
+  await editUserExecute(req, res, next, undefined);
 }
 async function editUserExecute(req, res, next, hash) {
-  var dbUser = await methods.updateUser(req, res, next, hash);
+  var dbUser = await methods.editUser(req, res, next, hash);
   if (dbUser.affectedRows === 1) {
-    var updatedUser = await methods.getUser(req, res, next);
+    var updatedUser = await methods.getUser(req.body.id, next);
     res.status(200).json(updatedUser[0]);
-  }
-  else {
+  } else {
     var serverError = {};
     serverError.servererrormessage = 'Internal Server Error';
     res.status(200).json(serverError);
@@ -73,7 +73,7 @@ async function deleteUser(req, res, next) {
 async function loginUser(req, res, next) {
 
   var dbUser = await methods.checkLoginUserName(req, res, next);
-  if (dbUser.length === 0)
+  if ((dbUser && dbUser.length === 0) || (dbUser === undefined || dbUser === null))
     res.status(200).json({ success: false, message: 'Λάθος όνομα χρήστη!' });
   else {
     //var dbUser2 = await methods.checkLoginUserPassword(req, res, next);
@@ -98,11 +98,15 @@ async function loginUser(req, res, next) {
     })
   }
 }
-
+async function changePassword(req, res, next) {
+  var userToCheck = await methods.getUser(req.body.userid, next);
+  await methods.checkPassword(userToCheck, req.body.oldpassword, req, res, next);
+}
 module.exports = {
   loginUser,
   getUsers,
   addUser,
   editUser,
-  deleteUser  
+  deleteUser,
+  changePassword
 }
