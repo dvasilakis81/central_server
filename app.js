@@ -43,7 +43,7 @@ app.post('/addMediaItem', dbMediaItems.addMediaItem);
 app.get('/getPageItems', dbPageItems.getPageItems);
 app.post('/addPageItem', dbPageItems.addPageItem);
 app.post('/editPageItem', dbPageItems.editPageItem);
-app.post('/getPageInfo', dbPageItems.getPageInfo);
+app.post('/getPageInfo', dbPageItems.getPageItem);
 app.get('/getAnnouncements', dbAnnouncements.getAnnouncements);
 app.post('/addAnnouncement', dbAnnouncements.addAnnouncement);
 app.post('/editAnnouncement', dbAnnouncements.editAnnouncement);
@@ -57,6 +57,7 @@ app.post('/editUser', dbUsers.editUser);
 app.get('/getUsers', dbUsers.getUsers);
 app.post('/changePassword', dbUsers.changePassword);
 app.post('/addPageComment', dbPageItems.addPageComment);
+app.post('/approveOrRejectComment', dbPageItems.approveOrRejectComment);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

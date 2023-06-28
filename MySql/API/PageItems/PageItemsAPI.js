@@ -11,10 +11,10 @@ async function addPageItem(req, res, next) {
 
   res.status(200).json(pageItem);
 }
-async function getPageItem(req, res, next) {
-  var pageItem = await methods.getPageItem(req, res, next);
-  res.status(200).json(pageItem);
-}
+// async function getPageItem(req, res, next) {
+//   var pageItem = await methods.getPageItem(req, res, next);
+//   res.status(200).json(pageItem);
+// }
 async function editPageItem(req, res, next) {
   var pageItem = await methods.editPageItem(req, res, next);
   await methods.fixPageTitleIfIsTab(req);
@@ -25,7 +25,7 @@ async function editPageItem(req, res, next) {
   else
     res.status(200).json(pageItem);
 }
-async function getPageInfo(req, res, next) {
+async function getPageItem(req, res, next) {
   var pageInfo = await methods.getPageInfo(req, res, next);
   res.status(200).json(pageInfo);
 }
@@ -37,13 +37,23 @@ async function addPageComment(req, res, next) {
   serverResponse.itemadded = pageItem;
   res.status(200).json(serverResponse);
 }
+async function approveOrRejectComment(req, res, next) {
+  var pageItem = await methods.approveOrRejectComment(req, res, next);
+  if (pageItem) {
+    var data = {};
+    data.success = true;
+    data.data = pageItem;
+    res.status(200).json(data);
+  }
+}
 
 module.exports = {
   getPageItems,
+  getPageItem,
   addPageItem,
   editPageItem,
-  getPageInfo,
-  addPageComment
+  addPageComment,
+  approveOrRejectComment
 }
 
 // SELECT *,JSON_OBJECT("tabs", json_array(
