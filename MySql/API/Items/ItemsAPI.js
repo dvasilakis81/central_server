@@ -2,8 +2,8 @@ const menuItemsMethods = require('../MenuItems/Methods');
 const announcementMethods = require('../Announcements/Methods');
 const pageMethods = require('../PageItems/Methods');
 const mediaMethods = require('../MediaItems/Methods');
-const categoriesMethods = require('../Categories/Methods');
 const userMethods = require('../Users/Methods');
+const categoriesMethods = require('../Categories/Methods');
 
 async function deleteItem(req, res, next) {
   var serverResponse = null;
@@ -28,6 +28,8 @@ async function deleteItem(req, res, next) {
     rows = serverResponse = await categoriesMethods.deleteItem(req, res, next);
   else if (req.body.kind == 6)
     rows = serverResponse = await userMethods.deleteItem(req, res, next);
+  else if (req.body.kind == 7)
+    rows = serverResponse = await categoriesMethods.deleteItem(req, res, next);
 
   if (rows && rows.affectedRows > 0) {
     var response = {};
@@ -35,8 +37,11 @@ async function deleteItem(req, res, next) {
     response.id = req.body.id
     res.status(200).json(response);
   }
-  else
-    res.status(709).json(serverResponse);
+  else{
+    var response = {};
+    response.success = false;
+    res.status(709).json(response);
+  }
 }
 
 module.exports = {

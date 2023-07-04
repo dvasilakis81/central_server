@@ -62,7 +62,7 @@ async function editUser(req, res, next, hash) {
     if (rows1 && rows1.affectedRows === 1) {
       const [rows2] = await db.query(queries.query_edituserrights(req));
       return rows1;
-      //if (rows2 && rows2.affectedRows === 1)      
+      //if (rows2 && rows2.affectedRows === 1)
       //  return fixRightsInfoArray(rows1);
     }
   } catch (error) {
@@ -121,8 +121,6 @@ async function changePassword(req, res, next) {
     })
   }
 }
-
-
 async function checkPassword(user, password, req, res, next) {
 
   if (password && password.length > 0) {

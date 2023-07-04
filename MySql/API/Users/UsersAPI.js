@@ -56,7 +56,10 @@ async function editUserExecute(req, res, next, hash) {
   var dbUser = await methods.editUser(req, res, next, hash);
   if (dbUser.affectedRows === 1) {
     var updatedUser = await methods.getUser(req.body.id, next);
-    res.status(200).json(updatedUser[0]);
+    var serverResponse = {};
+    serverResponse.success = true;
+    serverResponse.data = updatedUser[0];
+    res.status(200).json(serverResponse);
   } else {
     var serverError = {};
     serverError.servererrormessage = 'Internal Server Error';

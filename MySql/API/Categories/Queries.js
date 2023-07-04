@@ -19,7 +19,7 @@ function query_selectlastinserteditem(table) {
 }
 function query_addcategory(req) {
   
-  var name = req.body.categoryname;  
+  var name = req.body.name;  
   var hasSubCategories = req.body.hassubcategories;
   var parentId = req.body.parentid;
 

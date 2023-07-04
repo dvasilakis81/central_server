@@ -28,6 +28,7 @@ var dbCategories = require('./Mysql/API/Categories/CategoriesAPI');
 var dbItems = require('./Mysql/API/Items/ItemsAPI');
 var dbErrorItems = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
 var dbUsers = require('./Mysql/API/Users/UsersAPI');
+var dbLogs = require('./Mysql/API/ErrorItems/ErrorItemsAPI');
 
 app.get("/", (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -58,7 +59,7 @@ app.get('/getUsers', dbUsers.getUsers);
 app.post('/changePassword', dbUsers.changePassword);
 app.post('/addPageComment', dbPageItems.addPageComment);
 app.post('/approveOrRejectComment', dbPageItems.approveOrRejectComment);
-
+app.get('/getLogs', dbLogs.getErrorItems);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -79,12 +80,10 @@ app.all('/*', function (req, res, next) {
   res.setHeader("Expires", new Date(Date.now() - 2592000000).toUTCString());
   res.sendFile(path.join(__dirname, '/build/index.html'));
 })
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
-});
-
+})
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
