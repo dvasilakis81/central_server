@@ -16,7 +16,6 @@ async function getMenuItems(req, res, next) {
     next(error);
   }
 }
-
 async function getServiceItems(req, res, next) {
 
   try {
@@ -32,7 +31,6 @@ async function getServiceItems(req, res, next) {
     next(error);
   }
 }
-
 async function getServiceItemsByGroup(req, res, next) {
 
   try {
@@ -74,7 +72,6 @@ async function getMenuItem(req, res, next) {
     next(error);
   }
 }
-
 async function addMenuItem(req, res, next) {
 
   try {
@@ -89,7 +86,6 @@ async function addMenuItem(req, res, next) {
     next(error);
   }
 }
-
 async function editMenuItem(req, res, next) {
 
   try {
@@ -100,7 +96,6 @@ async function editMenuItem(req, res, next) {
     next(error);
   }
 }
-
 async function fixMenuItemsOrderNo(req, res, next) {
 
   try {
@@ -123,7 +118,6 @@ async function deleteItem(req, res, next) {
     next(error);
   }
 }
-
 async function addMenuCategories(req, res, next, menuitemid) {
   try {
     await db.query(queries.query_deletemenuitemcategories(req));

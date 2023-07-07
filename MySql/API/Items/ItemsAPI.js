@@ -34,7 +34,9 @@ async function deleteItem(req, res, next) {
   if (rows && rows.affectedRows > 0) {
     var response = {};
     response.success = true;
-    response.id = req.body.id
+    response.id = req.body.id;
+    if (req.body.kind === 1)
+      response.itemtype = req.body.itemtype;
     res.status(200).json(response);
   }
   else{
