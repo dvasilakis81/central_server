@@ -50,11 +50,28 @@ function query_addmediaitem(req, url) {
 function query_deleteitem(req) {
   return 'Delete From `central`.`media` Where Id=' + req.body.id;
 }
+function query_deletecategories(mediaid) {
+  return 'Delete From `central`.`mediacategories` Where MediaId=' + mediaid;
+}
+function query_checkmediaexists(medianame) {
+  return 'Select * From `central`.`media` Where Name=' + helper.addQuotes(medianame);
+}
+function query_additemcategories(mediaid, categories) {
+
+  var sqlQuery = 'INSERT INTO `mediacategories` (MediaId, CategoryId) VALUES ';
+  for (var i = 0; i < categories.length; i++)
+    sqlQuery += util.format('(%s,%s)%s', mediaid, categories[i], (i < categories.length - 1 ? ',' : ''));
+
+  return sqlQuery;
+}
 
 module.exports = {
   query_getmediaitems,
   query_addmediaitem,
   query_selectlastinserteditem,
   query_deleteitem, 
-  query_getmediaitem
+  query_getmediaitem,
+  query_additemcategories,
+  query_deletecategories,
+  query_checkmediaexists
 }

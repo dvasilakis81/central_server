@@ -15,7 +15,14 @@ async function getMediaItems(req, res, next) {
     next(error);
   }
 }
-
+async function addMediaCategories(req, next, mediaid) {
+  try {
+    if (req.body["categories[]"] && req.body["categories[]"].length > 0)
+      await db.query(queries.query_additemcategories(mediaid, req.body["categories[]"]));
+  } catch (error) {
+    next(error);
+  }
+}
 async function addMediaItem(req, res, next, url) {
 
   try {
@@ -26,20 +33,24 @@ async function addMediaItem(req, res, next, url) {
     next(error);
   }
 }
-
 async function addMediaToDirectory(req, res, next) {
   //const newpath = __dirname + "/files/";
-  const newpath = global.appRoot + "\\files\\";
   //const networkPath = util.format('%s', req.protocol, req.get('host'));
+  //const extension = path.extname(filename);
+
+  const newpath = global.appRoot + "\\files\\";
   const file = req.files.file;
   const filename = Buffer.from(file.name, 'latin1').toString('utf8');
-  const extension = path.extname(filename);
-  var ret = await file.mv(`${newpath}${filename}`);  
-  
-  if (ret === undefined)
-    ret = `files/${filename}`;
+
+  if (await checkIfMediaExists(filename, next) === false) {
+    var ret = await file.mv(`${newpath}${filename}`);
+    if (ret === undefined)
+      ret = `files/${filename}`;
+    else
+      ret = 'ERROR: ' + ret;
+  }
   else
-    ret = 'ERROR: ' + ret;
+    res.status(200).json({ info: true, message: 'To επιλεγμένο αρχείο υπάρχει ήδη'});
 
   // await file.mv(`${newpath}${filename}`, (err) => {
   //   if (err)
@@ -48,14 +59,13 @@ async function addMediaToDirectory(req, res, next) {
   // });
   return ret;
 }
-
 async function deleteMediaFromDirectory(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_getmediaitem(req));
-    if (rows && rows.length > 0){
-       var localPath = global.appRoot + '/' + rows[0].Url;
-       fs.unlinkSync(localPath);
+    if (rows && rows.length > 0) {
+      var localPath = global.appRoot + '/' + rows[0].Url;
+      fs.unlinkSync(localPath);
     }
 
     return rows[0];
@@ -63,6 +73,21 @@ async function deleteMediaFromDirectory(req, res, next) {
     next(error);
   }
 }
+async function checkIfMediaExists(filename, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_checkmediaexists(filename));
+    if (rows && rows.length > 0)
+      return true;
+
+    return false;
+  } catch (error) {
+    next(error);
+  }
+
+  return false;
+}
+
 async function deleteItem(req, res, next) {
 
   try {
@@ -78,5 +103,6 @@ module.exports = {
   addMediaItem,
   addMediaToDirectory,
   deleteMediaFromDirectory,
+  addMediaCategories,
   deleteItem
 }

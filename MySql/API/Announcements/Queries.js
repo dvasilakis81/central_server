@@ -7,7 +7,6 @@ function getCategoriesInfo() {
     'inner join categories as cat ON anc.categoryid=cat.Id ' +
     'where a.Id = anc.announcementid)) as categoriesInfo '
 }
-
 function query_getannouncements(req) {
   return 'Select * ' +
     getCategoriesInfo() +
@@ -89,7 +88,6 @@ function query_deleteannouncement(req) {
   var sqlQuery = 'Delete From `central`.`announcements` Where Id=' + req.body.id
   return sqlQuery;
 }
-
 function query_additemcategories(itemid, categories) {
 
   var sqlQuery = 'INSERT INTO `announcementcategories` (announcementid, categoryid) VALUES ';
