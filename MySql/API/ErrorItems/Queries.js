@@ -16,7 +16,7 @@ function query_adderroritem(item) {
   var sqlMessage = item.sqlMessage;
   var sqlState = item.sqlState;
 
-  var sqlQuery = 'INSERT INTO `logerror`(Code,Errno,Message,Sql,SqlMessage,SqlState) VALUES ';
+  var sqlQuery = 'INSERT INTO `logerror`(Code,Errno,Message,SqlQuery,SqlMessage,SqlState1) VALUES ';
   sqlQuery += util.format('(%s,%s,%s,%s,%s,%s)',
     helper.addQuotes(code),
     errno || 0,

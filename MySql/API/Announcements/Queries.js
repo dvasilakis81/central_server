@@ -55,7 +55,7 @@ function query_addannouncement(req) {
   return sqlQuery;
 }
 function query_deletecategories(req) {
-  return 'Delete From `central`.`announcementcategories` Where announcementid=' + req.body.id;
+  return 'Delete From `central`.`mediacategories` Where mediaid=' + req.body.id;
 }
 function query_editannouncement(req) {
 
@@ -68,15 +68,16 @@ function query_editannouncement(req) {
   var image = req.body.image;
   var showonfirstpage = req.body.showonfirstpage;
   var hidden = req.body.hidden;
+
   //var orderNo = req.body.orderNo;
 
   //var sqlQuery = util.format('UPDATE `central`.`announcements` SET Title=%s,Description=%s, Url=%s, color=%s, backgroundColor=%s, image=%s, showonfirstpage=%s, hidden=%s, orderNo=%s WHERE Id=%s',
   var sqlQuery = util.format('UPDATE `central`.`announcements` SET Title=%s,Description=%s,image=%s,showonfirstpage=%s,hidden=%s WHERE Id=%s',
     helper.addQuotes(title),
-    helper.addQuotes(description),    
+    helper.addQuotes(description),
     helper.addQuotes(image),
     showonfirstpage,
-    hidden,    
+    hidden,
     id);
 
   return sqlQuery;
@@ -86,6 +87,10 @@ function query_editannouncement(req) {
 // }
 function query_deleteannouncement(req) {
   var sqlQuery = 'Delete From `central`.`announcements` Where Id=' + req.body.id
+  return sqlQuery;
+}
+function query_editcategories(req) {
+  var sqlQuery = 'Delete From `central`.`mediacategories` Where mediaid=' + req.body.id
   return sqlQuery;
 }
 function query_additemcategories(itemid, categories) {
@@ -106,5 +111,6 @@ module.exports = {
   query_getannouncements,
   query_deleteannouncement,
   query_additemcategories,
+  query_editcategories,
   query_deletecategories
 }

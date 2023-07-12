@@ -6,11 +6,30 @@ const path = require('path');
 const util = require('util');
 var fs = require('fs');
 
+function fixCategoriesInfoArray(rows) {
+  if (rows) {
+    for (var i = 0; i < rows.length; i++) {
+      var ti = JSON.parse(rows[i].categoriesInfo);
+      var t2 = '[' + ti + ']';
+      rows[i].categoriesInfo = JSON.parse(t2);
+    }
+  }
+  return rows;
+}
 async function getMediaItems(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_getmediaitems(req));
-    return rows;
+    return fixCategoriesInfoArray(rows);
+  } catch (error) {
+    next(error);
+  }
+}
+async function getMediaItem(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_getmediaitem(req.body.id));
+    return fixCategoriesInfoArray(rows);
   } catch (error) {
     next(error);
   }
@@ -50,7 +69,7 @@ async function addMediaToDirectory(req, res, next) {
       ret = 'ERROR: ' + ret;
   }
   else
-    res.status(200).json({ info: true, message: 'To επιλεγμένο αρχείο υπάρχει ήδη'});
+    res.status(200).json({ info: true, message: 'To επιλεγμένο αρχείο υπάρχει ήδη' });
 
   // await file.mv(`${newpath}${filename}`, (err) => {
   //   if (err)
@@ -58,6 +77,20 @@ async function addMediaToDirectory(req, res, next) {
   //   return true; //res.status(200).send({ message: "File Uploaded", code: 200 });
   // });
   return ret;
+}
+async function editMediaItem(req, res, next) {
+
+  try {
+    const [rows] = await db.query(queries.query_editmediaitem(req));
+    if (rows && rows.affectedRows == 1) {
+      await db.query(queries.query_deletecategories(req));
+      if (req.body.categories && req.body.categories.length > 0)
+        await db.query(queries.query_addcategories(req));
+    }
+    return rows;
+  } catch (error) {
+    next(error);
+  }
 }
 async function deleteMediaFromDirectory(req, res, next) {
 
@@ -101,6 +134,8 @@ async function deleteItem(req, res, next) {
 module.exports = {
   getMediaItems,
   addMediaItem,
+  getMediaItem,
+  editMediaItem,
   addMediaToDirectory,
   deleteMediaFromDirectory,
   addMediaCategories,

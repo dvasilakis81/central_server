@@ -24,7 +24,7 @@ function query_getcategoryannouncements() {
     'Order By a.Created Desc)) as announcementsInfo '
 }
 function query_getcategoryservices() {
-  return ' json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
+  return ',json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
     '\'Url\', m.Url, \'ServiceOrderNo\', m.ServiceOrderNo, ' +
     '\'ImageService\', m.ImageService, \'ImageMenu\', m.ImageMenu, \'Hidden\', m.Hidden)) ' +
     'from menu m ' +
@@ -39,13 +39,24 @@ function query_getcategorysubcategories() {
     'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
     'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
 }
+function query_getcategorymedia() {
+  return ',json_array((select GROUP_CONCAT(json_object(\'Id\', md.Id, \'Name\', md.Name, ' +
+    '\'Url\', md.Url, \'Title\', md.Title)) ' +
+    'from media md ' +
+    'inner join mediacategories mc on md.Id=mc.mediaid ' +
+    'where cat.Id=mc.categoryid)) as mediaInfo '
+}
+
 function query_getserviceitemsbygroup() {
-  var mysqlQuery = 'Select *, ' +
+  var mysqlQuery = 'Select *' +
   query_getcategoryservices() +
   query_getcategoryannouncements() +
-  'from categories cat left join servicecategories sc on cat.Id=sc.categoryid ' +
+  query_getcategorymedia() + 
+  'from categories cat ' + 
+  //'left join servicecategories sc on cat.Id=sc.categoryid ' +  
   'group by Id ' +
-  'order by cat.OrderNo desc, cat.Name asc '
+  'order by cat.OrderNo desc, cat.Name asc ';
+
   return mysqlQuery;
 }
 function query_getserviceitems() {

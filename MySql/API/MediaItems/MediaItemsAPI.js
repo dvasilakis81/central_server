@@ -14,12 +14,22 @@ async function addMediaItem(req, res, next) {
       await methods.addMediaCategories(req, next, mediaItems.Id);
 
     res.status(200).json(mediaItems);
-  } else {
+  } else 
     res.status(450).json('Internal Server Error');
+}
+async function editMediaItem(req, res, next) {
+  var mediaItem = await methods.editMediaItem(req, res, next);
+  if (mediaItem && mediaItem.affectedRows > 0) {
+    var media = await methods.getMediaItem(req, res, next);
+    res.status(200).json(media[0]);
+  } else {
+    var serverResponse = {};
+    serverResponse.errormessage = 'Failed to affect database row';
+    res.status(200).json(serverResponse);
   }
 }
-
 module.exports = {
   getMediaItems,
-  addMediaItem
+  addMediaItem,
+  editMediaItem
 }

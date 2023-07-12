@@ -41,6 +41,7 @@ app.get('/getMediaItems', dbMediaItems.getMediaItems);
 app.post('/addMenuItem', dbMenuItems.addMenuItem);
 app.post('/editMenuItem', dbMenuItems.editMenuItem);
 app.post('/addMediaItem', dbMediaItems.addMediaItem);
+app.post('/editMediaItem', dbMediaItems.editMediaItem);
 app.get('/getPageItems', dbPageItems.getPageItems);
 app.post('/addPageItem', dbPageItems.addPageItem);
 app.post('/editPageItem', dbPageItems.editPageItem);
