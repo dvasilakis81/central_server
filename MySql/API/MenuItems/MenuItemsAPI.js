@@ -20,7 +20,6 @@ async function editMenuItem(req, res, next) {
   var editResponse = await methods.editMenuItem(req, res, next);
   if (editResponse.affectedRows > 0) {
     await methods.addMenuCategories(req, res, next, req.body.id);
-    // await methods.fixMenuItemsOrderNo(req, res, next);
     menuItem = await methods.getMenuItem(req, res, next);
   }
   res.status(200).json(menuItem);

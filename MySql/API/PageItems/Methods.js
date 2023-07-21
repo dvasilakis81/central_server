@@ -120,7 +120,6 @@ async function approveOrRejectComment(req, res, next) {
     next(error);
   }
 }
-
 async function getPageInfo(req, res, next) {
 
   try {

@@ -123,14 +123,14 @@ async function changePassword(req, res, next) {
 }
 async function checkPassword(user, password, req, res, next) {
 
+  var ret = {};
   if (password && password.length > 0) {
     bcryptNodejs.compare(password, user[0].Password, async function (err, res1) {
       if (err) {
         ret.success = false;
         ret.message = 'Έγινε κάποιο σφάλμα κατά την επιβεβαίωση των στοιχείων';
         res.status(200).json(ret);
-      }
-      else if (res1 === false) {
+      } else if (res1 === false) {
         ret.success = false;
         ret.message = 'O παλιός κωδικός δεν είναι σωστός!';
         res.status(200).json(ret);

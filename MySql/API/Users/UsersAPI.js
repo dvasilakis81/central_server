@@ -14,28 +14,35 @@ async function addUser(req, res, next) {
   const password = req.body.password;
   var saltRounds = bcryptNodejs.genSaltSync(1);
 
-  bcryptNodejs.hash(password, saltRounds, null, async function (err, hash) {
-    if (err)
-      helper.consoleLog(err);
-    else {
-      var dbUser = await methods.checkLoginUserName(req, res, next);
-      if (dbUser && dbUser.length === 1)
-        res.json({ success: false, message: 'A user with username ' + username + ' already exists!', token: token });
+  if (password) {
+    bcryptNodejs.hash(password, saltRounds, null, async function (err, hash) {
+      if (err)
+        helper.consoleLog(err);
       else {
-        var dbInsertedUser = await methods.addUser(req, res, next, hash);
-        if (dbInsertedUser) {
-          dbInsertedUser.success = true;
-          res.status(200).json(dbInsertedUser);
-        }
+        var dbUser = await methods.checkLoginUserName(req, res, next);
+        if (dbUser && dbUser.length === 1)
+          res.json({ success: false, message: 'A user with username ' + username + ' already exists!', token: token });
         else {
-          var serverResponse = {};
-          serverResponse.errormessage = 'Failed to create user';
-          serverResponse.success = false;
-          res.status(200).json(serverResponse);
+          var dbInsertedUser = await methods.addUser(req, res, next, hash);
+          if (dbInsertedUser) {
+            dbInsertedUser.success = true;
+            res.status(200).json(dbInsertedUser);
+          }
+          else {
+            var serverResponse = {};
+            serverResponse.errormessage = 'Failed to create user';
+            serverResponse.success = false;
+            res.status(200).json(serverResponse);
+          }
         }
       }
-    }
-  })
+    })
+  } else {
+    var serverResponse = {};
+    serverResponse.errormessage = 'Failed to create user. Password undefined';
+    serverResponse.success = false;
+    res.status(200).json(serverResponse);
+  }
 }
 async function editUser(req, res, next) {
 

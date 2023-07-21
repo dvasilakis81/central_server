@@ -1,4 +1,6 @@
 var queries = require('./Queries');
+var activitiy_queries = require('../Activities/Queries');
+
 const db = require('../../dbConfig');
 
 async function getMenuItems(req, res, next) {
@@ -83,8 +85,8 @@ async function addMenuItem(req, res, next) {
     const [rows] = await db.query(queries.query_selectlastinserteditem('menu'));
     if (req.body.categories)
       await db.query(queries.query_addmenuitemcategories(rows[0], req.body.categories));
-    await db.query(queries.query_editmenuserviceitemsorderno(req));
 
+    db.query(activitiy_queries.add_activity(req.body.token.userLoginInfo[0], 'Δημιουργία νέου μενού με όνομα ' + req.body.name));
     return rows[0];
   } catch (error) {
     next(error);
@@ -94,6 +96,8 @@ async function editMenuItem(req, res, next) {
 
   try {
     const [rows] = await db.query(queries.query_editmenuitem(req));
+    if (req?.body?.token?.userLoginInfo.length > 0)
+      await db.query(activitiy_queries.add_activity(req?.body?.token?.userLoginInfo[0], 'Επεξεργασία μενού με τίτλο ' + req.body.name));
     return rows;
   } catch (error) {
     console.log(error);

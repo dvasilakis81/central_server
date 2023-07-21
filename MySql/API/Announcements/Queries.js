@@ -82,9 +82,6 @@ function query_editannouncement(req) {
 
   return sqlQuery;
 }
-// function query_getannouncements(){
-//   return 'Select * From `central`.`announcements`';
-// }
 function query_deleteannouncement(req) {
   var sqlQuery = 'Delete From `central`.`announcements` Where Id=' + req.body.id
   return sqlQuery;

@@ -23,7 +23,7 @@ async function addErrorItem(err, next) {
 
   try {
     await db.query(queries.query_adderroritem(err));
-    const [rows] = await db.query(queries.query_selectlastinserteditem('error'));
+    const [rows] = await db.query(queries.query_selectlastinserteditem('logerror'));
     return rows[0];
   } catch (error) {
     next(error);

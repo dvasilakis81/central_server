@@ -29,5 +29,6 @@ function query_adderroritem(item) {
 }
 module.exports = {
   query_adderroritem,
-  query_geterroritems
+  query_geterroritems,
+  query_selectlastinserteditem
 }

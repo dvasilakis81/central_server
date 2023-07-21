@@ -1,12 +1,6 @@
 const util = require('util');
 const helper = require('../../helpermethods');
 
-function getAnnouncementsInfo() {
-  return ', json_array((' +
-    'select GROUP_CONCAT(json_object(\'Id\',c.categoryid, \'Name\',cat.Name)) ' +
-    'from announcementcategories c inner join categories as cat ON c.categoryid=cat.Id ' +
-    'where c.announcementid=m.Id)) as announcementInfo ';
-}
 function getCategoriesInfo() {
   return ', json_array((' +
     'select GROUP_CONCAT(json_object(\'Id\',c.categoryid, \'Name\',cat.Name)) ' +
@@ -31,14 +25,6 @@ function query_getcategoryservices() {
     'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
     'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
 }
-function query_getcategorysubcategories() {
-  return ' json_array((select GROUP_CONCAT(json_object(\'Id\', m.Id, \'Name\', m.Name, ' +
-    '\'Url\', m.Url, \'ServiceOrderNo\', m.ServiceOrderNo, ' +
-    '\'ImageService\', m.ImageService, \'ImageMenu\', m.ImageMenu, \'Hidden\', m.Hidden)) ' +
-    'from menu m ' +
-    'inner join servicecategories sc2 on m.Id=sc2.serviceid and m.ServiceItem = 1 ' +
-    'where cat.Id=sc2.categoryid and m.Hidden = 0)) as servicesInfo '
-}
 function query_getcategorymedia() {
   return ',json_array((select GROUP_CONCAT(json_object(\'Id\', md.Id, \'Name\', md.Name, ' +
     '\'Url\', md.Url, \'Title\', md.Title)) ' +
@@ -46,7 +32,6 @@ function query_getcategorymedia() {
     'inner join mediacategories mc on md.Id=mc.mediaid ' +
     'where cat.Id=mc.categoryid)) as mediaInfo '
 }
-
 function query_getserviceitemsbygroup() {
   var mysqlQuery = 'Select *' +
   query_getcategoryservices() +
@@ -139,7 +124,6 @@ function query_editmenuserviceitemsorderno(req) {
 
   return sqlQuery;
 }
-
 function query_editmenuitem(req) {
 
   var id = req.body.id;
@@ -195,5 +179,5 @@ module.exports = {
   query_editmenuserviceitemsorderno,
   query_getannouncements,
   query_deleteitem,
-  query_deletemenuitemcategories
+  query_deletemenuitemcategories  
 }
